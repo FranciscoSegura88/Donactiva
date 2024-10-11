@@ -1,7 +1,6 @@
 package com.donactiva.proyecto.model;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
