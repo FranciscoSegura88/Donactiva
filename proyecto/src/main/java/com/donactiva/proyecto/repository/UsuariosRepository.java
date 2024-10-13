@@ -7,5 +7,5 @@ import com.donactiva.proyecto.model.Usuarios;
 
 @Repository
 public interface UsuariosRepository extends CrudRepository<Usuarios, Integer>{
-    
+    Usuarios findByCorreo(String correo);
 }
