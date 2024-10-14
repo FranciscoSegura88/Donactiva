@@ -18,18 +18,18 @@ public class UsuariosController {
     @Autowired
     private UsuariosService usuarioService;
 
-    /*
+
     @GetMapping("/LogIn")
     public String obtenerUsuarioPorEmail(@RequestParam String correo, @RequestParam String contraseña) {
-        
+
         Usuarios usuario = usuarioService.obtenerUsuarioPorCorreo(correo);
-        if (usuario.getContraseña().equals(contraseña)){
-            return "Inicio de sesion exitoso.";
+        if (usuario != null && usuario.getContraseña().equals(contraseña)){
+            String resultado = "Bienvenido, " + usuario.getNombre();
+            return resultado;
         }
-        
+
         return "Credenciales invalidas.";
     }
-    */
 
     @PostMapping("/signUp")
     public void guardarUsuario(@RequestBody Usuarios usuario){

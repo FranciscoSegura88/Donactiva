@@ -42,12 +42,12 @@
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>6.2.0.Final</version> <!-- O la versión que prefieras -->
+			<version>6.2.0.Final</version> 
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>2.0.1.Final</version> <!-- O la versión que prefieras -->
+			<version>2.0.1.Final</version>
 		</dependency>
 
 		<dependency>
@@ -78,14 +78,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 			<plugin>
             <groupId>org.apache.maven.plugins</groupId>
