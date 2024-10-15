@@ -18,6 +18,9 @@ public class UsuariosController {
     @Autowired
     private UsuariosService usuarioService;
 
+    //Métodos POST
+
+    //Métodos GET
 
     @GetMapping("/LogIn")
     public String obtenerUsuarioPorEmail(@RequestParam String correo, @RequestParam String contraseña) {
