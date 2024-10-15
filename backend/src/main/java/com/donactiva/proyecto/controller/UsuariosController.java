@@ -20,7 +20,7 @@ public class UsuariosController {
 
     // Métodos GET
     
-    @GetMapping("/LogIn")
+    @GetMapping("/logIn")
     public String obtenerUsuarioPorEmail(@RequestParam String correo, @RequestParam String contraseña) {
 
         Usuarios usuario = usuarioService.obtenerUsuarioPorCorreo(correo);
