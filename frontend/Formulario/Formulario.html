@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Donacion</title>
+    <link rel="stylesheet" href="formulario.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Elige los Articulos a Donar</h1>
+
+        <form id="donationForm">
+
+            <!-- Opción: No perecederos -->
+            <div class="form-group">
+                <label for="no-perecederos">No perecederos</label>
+                <input type="number" id="no-perecederos" name="no-perecederos" min="0" value="0">
+            </div>
+
+            <!-- Opción: Textiles -->
+            <div class="form-group">
+                <label for="textiles">Textiles</label>
+                <input type="number" id="textiles" name="textiles" min="0" value="0">
+            </div>
+
+            <!-- Opción: Higiene -->
+            <div class="form-group">
+                <label for="higiene">Higiene</label>
+                <input type="number" id="higiene" name="higiene" min="0" value="0">
+            </div>
+
+            <!-- Opción: Juguetes -->
+            <div class="form-group">
+                <label for="juguetes">Juguetes</label>
+                <input type="number" id="juguetes" name="juguetes" min="0" value="0">
+            </div>
+
+            <!-- Boton Enviar -->
+            <button type="submit" class="btn">Enviar Donacion</button>
+
+        </form>
+
+    </div>
+</body>
