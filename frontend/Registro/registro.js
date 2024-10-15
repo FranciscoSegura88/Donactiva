@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function(){
         .then(data => {
             console.log('Success:', data);
             alert("Cuenta creada exitosamente");
+            form.reset();
         })
         .catch((error) => {
             console.error('Error:', error); //Maneja errores
