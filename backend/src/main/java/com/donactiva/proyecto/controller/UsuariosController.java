@@ -18,10 +18,8 @@ public class UsuariosController {
     @Autowired
     private UsuariosService usuarioService;
 
-    //Métodos POST
-
-    //Métodos GET
-
+    // Métodos GET
+    
     @GetMapping("/LogIn")
     public String obtenerUsuarioPorEmail(@RequestParam String correo, @RequestParam String contraseña) {
 
@@ -33,6 +31,8 @@ public class UsuariosController {
 
         return "Credenciales invalidas.";
     }
+    
+    // Métodos POST
 
     @PostMapping("/signUp")
     public void guardarUsuario(@RequestBody Usuarios usuario){
