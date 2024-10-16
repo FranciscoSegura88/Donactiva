@@ -2,7 +2,10 @@ package com.donactiva.proyecto.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
+
 import com.donactiva.proyecto.model.Usuarios;
 import com.donactiva.proyecto.repository.UsuariosRepository;
 
@@ -11,6 +14,7 @@ interface UsuarioService {
     Usuarios obtenerUsuarioPorCorreo(String correo);
     void guardarUsuario(Usuarios usuario);
     List<Usuarios> listarUsuarios();
+    Optional<Usuarios> obtenerUsuarioPorId(int id);
 }
 
 @Service
@@ -32,6 +36,11 @@ public class UsuariosService implements UsuarioService {
     @Override
     public List<Usuarios> listarUsuarios() {
         return (List<Usuarios>) usuarioRepository.findAll();
+    }
+
+    @Override
+    public Optional<Usuarios> obtenerUsuarioPorId(int id){
+        return usuarioRepository.findById(id);
     }
 
 }

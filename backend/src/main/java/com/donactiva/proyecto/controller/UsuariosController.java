@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 import com.donactiva.proyecto.model.Usuarios;
 import com.donactiva.proyecto.service.UsuariosService;
 
@@ -32,7 +34,11 @@ public class UsuariosController {
         return "Credenciales invalidas.";
     }
     
-    // Métodos POST
+    @GetMapping("")
+    public Optional<Usuarios> obtenerUsuarioPorId(@RequestParam int id) {
+        return usuarioService.obtenerUsuarioPorId(id);
+    }
+    
 
     @PostMapping("/signUp")
     public void guardarUsuario(@RequestBody Usuarios usuario){
