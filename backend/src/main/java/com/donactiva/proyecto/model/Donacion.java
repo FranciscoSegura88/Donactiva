@@ -1,5 +1,8 @@
 package com.donactiva.proyecto.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +13,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "donacion")
@@ -26,11 +30,15 @@ public class Donacion {
     private Articulos articulo;
 
     @ManyToOne
-    @JoinColumn(name = "idLocalizacoin", nullable = false)
+    @JoinColumn(name = "idLocalizacion", nullable = false)
     private Localizacion localizacion;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)
     private Usuarios usuario;
+
+    @Column(name = "fecha_donacion", nullable = true, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime fechaDonacion;
 
 }
