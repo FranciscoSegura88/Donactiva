@@ -4,6 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,6 +23,19 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class Donacion {
 
+    public enum EstadoDonacion {
+        PENDIENTE,
+        CADUCADA,
+        RECOLECTADA
+    }
+
+    private LocalDateTime fechaRecolectada;
+
+    public void setFechaRecolectada(LocalDateTime fechaRecolectada){
+        this.fechaRecolectada = fechaRecolectada;
+        this.estado = EstadoDonacion.RECOLECTADA;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idDonacion;
@@ -37,8 +52,11 @@ public class Donacion {
     @JoinColumn(name = "idUsuario", nullable = false)
     private Usuarios usuario;
 
-    @Column(name = "fecha_donacion", nullable = true, updatable = false)
+    @Column(name = "fecha_Creacion", nullable = true, updatable = false)
     @CreationTimestamp
-    private LocalDateTime fechaDonacion;
+    private LocalDateTime fechaCreacion;
 
+    @Enumerated(EnumType.STRING)
+    private EstadoDonacion estado = EstadoDonacion.PENDIENTE;
+    
 }

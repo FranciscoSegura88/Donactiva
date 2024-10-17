@@ -1,14 +1,23 @@
 package com.donactiva.proyecto.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.time.LocalDateTime;
+
 import com.donactiva.proyecto.repository.DonacionRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import com.donactiva.proyecto.model.*;
+import com.donactiva.proyecto.model.Donacion.EstadoDonacion;
 
 interface InnerDonacionService {
     Donacion guardarDonacion(Donacion donacion, int idArticulo, int idLocalizacion, int idUsuario);
     Iterable<Donacion> obtenerTodasDonaciones(int idUsuario);
+    Donacion marcarComoRecolectada(int id);
 }
 
 @Service
@@ -46,4 +55,29 @@ public class DonacionService implements InnerDonacionService{
 
         return donacionRepository.save(donacion);
     }
+
+    @Scheduled(fixedRate = 60000) //cada un minuto para pruebas
+    public void verificarCaducadas(){
+        List<Donacion> donacionesPendientes = donacionRepository.findByEstado(EstadoDonacion.PENDIENTE);
+        
+        for(Donacion donacion : donacionesPendientes){
+            if(donacion.getFechaCreacion().plusMinutes(2).isBefore(LocalDateTime.now())){
+                donacion.setEstado(EstadoDonacion.CADUCADA);
+                donacionRepository.save(donacion);
+            }
+        }
+    }
+
+    public Donacion marcarComoRecolectada(int id) {
+    Donacion donacion = donacionRepository.findByIdDonacion(id);
+    if (donacion != null) {
+        donacion.setEstado(EstadoDonacion.RECOLECTADA);
+        LocalDateTime fechaRecolectada = LocalDateTime.now();
+        donacion.setFechaRecolectada(fechaRecolectada);
+        return donacionRepository.save(donacion);
+    }else{
+        throw new EntityNotFoundException("Donación no encontrada con ID: " + id);
+    }
+    
+}
 }
