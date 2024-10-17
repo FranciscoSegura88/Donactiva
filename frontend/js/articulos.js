@@ -43,3 +43,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+function updateQuantity(id, increment) {
+    const input = document.getElementById(id);
+    let value = parseInt(input.value);
+
+    value += increment;
+    if (value < 0) {
+        value = 0;
+    }
+
+    input.value = value;
+}
