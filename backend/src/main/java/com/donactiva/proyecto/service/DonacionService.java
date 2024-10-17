@@ -6,8 +6,13 @@ import org.springframework.stereotype.Service;
 import com.donactiva.proyecto.repository.DonacionRepository;
 import com.donactiva.proyecto.model.*;
 
+interface InnerDonacionService {
+    Donacion guardarDonacion(Donacion donacion, int idArticulo, int idLocalizacion, int idUsuario);
+    Iterable<Donacion> obtenerTodasDonaciones(int idUsuario);
+}
+
 @Service
-public class DonacionService {
+public class DonacionService implements InnerDonacionService{
 
     @Autowired
     private DonacionRepository donacionRepository;
@@ -20,6 +25,10 @@ public class DonacionService {
     
     @Autowired
     private UsuarioService usuarioService;
+
+    public Iterable<Donacion> obtenerTodasDonaciones(int idUsuario){
+        return donacionRepository.findAllByUsuario_IdUsuario(idUsuario);
+    }
 
     public Donacion guardarDonacion(Donacion donacion, int idArticulo, int idLocalizacion, int idUsuario){
         Articulos articulo = articulosService.obtenerArticulosPorId(idArticulo)
