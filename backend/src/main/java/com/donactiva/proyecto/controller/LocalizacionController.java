@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 import com.donactiva.proyecto.model.Localizacion;
 import com.donactiva.proyecto.service.LocalizacionService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping
@@ -19,9 +20,17 @@ public class LocalizacionController {
     private LocalizacionService localizacionService;
 
     @GetMapping
-    public ResponseEntity<List<Localizacion>> obtenerLocalizaciones() {
-        List<Localizacion> localizaciones = localizacionService.obtenerTodasLocalizaciones();
+    public ResponseEntity<Iterable<Localizacion>> obtenerLocalizaciones() {
+        Iterable<Localizacion> localizaciones = localizacionService.obtenerTodasLocalizaciones();
         return ResponseEntity.ok(localizaciones);
     }
+
+    @PostMapping("/guardarLocalizacion")
+    public ResponseEntity<Localizacion> guardarLocalizacion(@RequestBody Localizacion localizacion) {
+        localizacionService.guardarLocalizacion(localizacion);
+        return ResponseEntity.ok(localizacion);
+        
+    }
+    
 
 }

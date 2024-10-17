@@ -7,5 +7,5 @@ import com.donactiva.proyecto.model.Donacion;
 
 @Repository
 public interface DonacionRepository extends CrudRepository<Donacion, Integer>{
-
+    Iterable<Donacion> findAllByUsuario_IdUsuario(int idUsuario);
 }
