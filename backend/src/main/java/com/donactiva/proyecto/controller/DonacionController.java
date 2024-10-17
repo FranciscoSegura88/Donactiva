@@ -12,7 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.donactiva.proyecto.service.DonacionService;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import com.donactiva.proyecto.model.Donacion;
+
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/api")
@@ -38,6 +45,16 @@ public class DonacionController {
         Iterable<Donacion> donacion = donacionService.obtenerTodasDonaciones(idUsuario);
         return ResponseEntity.ok(donacion);
     }
+
+    @PutMapping("/recolectada/{id}")
+    public ResponseEntity<Donacion> marcarComoRecolectadaEntity(@PathVariable int id) {
+    try {
+        Donacion donacionOpt = donacionService.marcarComoRecolectada(id);
+        return ResponseEntity.ok(donacionOpt);
+    } catch (EntityNotFoundException e) {
+        return ResponseEntity.notFound().build();
+    }
+}
       
       
 }
