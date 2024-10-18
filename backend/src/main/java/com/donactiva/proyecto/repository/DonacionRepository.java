@@ -12,8 +12,8 @@ import java.util.List;
 @Repository
 public interface DonacionRepository extends CrudRepository<Donacion, Integer>{
     Iterable<Donacion> findAllByUsuario_IdUsuario(int idUsuario);
-    List<Donacion> findByEstado(EstadoDonacion estado);
-    Iterable<Donacion> findAllByUsuario_IdUsuarioAndEstado(int idUsuario, EstadoDonacion estado);
+    List<Donacion> findByEstado(EstadoDonacion estadoDonacion);
+    Iterable<Donacion> findAllByUsuario_IdUsuarioAndEstado(int idUsuario, EstadoDonacion estadoDonacion);
     Donacion findByIdDonacion(int idDonacion);
 
 }

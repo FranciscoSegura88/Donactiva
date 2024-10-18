@@ -16,8 +16,10 @@ import com.donactiva.proyecto.model.Donacion.EstadoDonacion;
 
 interface InnerDonacionService {
     Donacion guardarDonacion(Donacion donacion, int idArticulo, int idLocalizacion, int idUsuario);
-    Iterable<Donacion> obtenerTodasDonaciones(int idUsuario);
     Donacion marcarComoRecolectada(int id);
+    Iterable<Donacion> obtenerTodasDonaciones(int idUsuario);
+    Iterable<Donacion> obtenerDonacionesPorEstado (int idUsuario, EstadoDonacion estado);
+    
 }
 
 @Service
@@ -35,15 +37,19 @@ public class DonacionService implements InnerDonacionService{
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private PuntosService puntosService;
+
     public Iterable<Donacion> obtenerTodasDonaciones(int idUsuario){
         return donacionRepository.findAllByUsuario_IdUsuario(idUsuario);
     }
 
-    public Iterable<Donacion> obtenerDonacionesPorEstado (int idUsuario, EstadoDonacion estado){
-        return donacionRepository.findAllByUsuario_IdUsuarioAndEstado(idUsuario, estado);
+    public Iterable<Donacion> obtenerDonacionesPorEstado (int idUsuario, EstadoDonacion estadoDonacion){
+        return donacionRepository.findAllByUsuario_IdUsuarioAndEstado(idUsuario, estadoDonacion);
     }
 
     public Donacion guardarDonacion(Donacion donacion, int idArticulo, int idLocalizacion, int idUsuario){
+        
         Articulos articulo = articulosService.obtenerArticulosPorId(idArticulo)
             .orElseThrow(() -> new RuntimeException("Artículo no encontrado con id: " + idArticulo));
 
@@ -56,7 +62,6 @@ public class DonacionService implements InnerDonacionService{
         donacion.setArticulo(articulo);
         donacion.setLocalizacion(localizacion);
         donacion.setUsuario(usuario);
-
         return donacionRepository.save(donacion);
     }
 
@@ -78,6 +83,8 @@ public class DonacionService implements InnerDonacionService{
         donacion.setEstado(EstadoDonacion.RECOLECTADA);
         LocalDateTime fechaRecolectada = LocalDateTime.now();
         donacion.setFechaRecolectada(fechaRecolectada);
+        Articulos articulo = donacion.getArticulo();
+        puntosService.guardarPuntos(donacion,articulo);
         return donacionRepository.save(donacion);
     }else{
         throw new EntityNotFoundException("Donación no encontrada con ID: " + id);
