@@ -39,6 +39,10 @@ public class DonacionService implements InnerDonacionService{
         return donacionRepository.findAllByUsuario_IdUsuario(idUsuario);
     }
 
+    public Iterable<Donacion> obtenerDonacionesPorEstado (int idUsuario, EstadoDonacion estado){
+        return donacionRepository.findAllByUsuario_IdUsuarioAndEstado(idUsuario, estado);
+    }
+
     public Donacion guardarDonacion(Donacion donacion, int idArticulo, int idLocalizacion, int idUsuario){
         Articulos articulo = articulosService.obtenerArticulosPorId(idArticulo)
             .orElseThrow(() -> new RuntimeException("Artículo no encontrado con id: " + idArticulo));
@@ -56,12 +60,12 @@ public class DonacionService implements InnerDonacionService{
         return donacionRepository.save(donacion);
     }
 
-    @Scheduled(fixedRate = 60000) //cada un minuto para pruebas
+    @Scheduled(fixedRate = 3600000) //cada hora busca
     public void verificarCaducadas(){
         List<Donacion> donacionesPendientes = donacionRepository.findByEstado(EstadoDonacion.PENDIENTE);
         
         for(Donacion donacion : donacionesPendientes){
-            if(donacion.getFechaCreacion().plusMinutes(2).isBefore(LocalDateTime.now())){
+            if(donacion.getFechaCreacion().plusHours(48).isBefore(LocalDateTime.now())){
                 donacion.setEstado(EstadoDonacion.CADUCADA);
                 donacionRepository.save(donacion);
             }

@@ -13,5 +13,7 @@ import java.util.List;
 public interface DonacionRepository extends CrudRepository<Donacion, Integer>{
     Iterable<Donacion> findAllByUsuario_IdUsuario(int idUsuario);
     List<Donacion> findByEstado(EstadoDonacion estado);
+    Iterable<Donacion> findAllByUsuario_IdUsuarioAndEstado(int idUsuario, EstadoDonacion estado);
     Donacion findByIdDonacion(int idDonacion);
+
 }

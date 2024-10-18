@@ -16,6 +16,7 @@ import com.donactiva.proyecto.service.DonacionService;
 import jakarta.persistence.EntityNotFoundException;
 
 import com.donactiva.proyecto.model.Donacion;
+import com.donactiva.proyecto.model.Donacion.EstadoDonacion;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,8 +42,15 @@ public class DonacionController {
       }
 
       @GetMapping("/misDonaciones")
-      public ResponseEntity<Iterable<Donacion>> obtenerDonaciones(@RequestParam int idUsuario) {
-        Iterable<Donacion> donacion = donacionService.obtenerTodasDonaciones(idUsuario);
+      public ResponseEntity<Iterable<Donacion>> obtenerDonaciones(
+        @RequestParam int idUsuario,
+        @RequestParam(required = false) EstadoDonacion estado) {
+        Iterable<Donacion> donacion;
+        if(estado != null){
+            donacion = donacionService.obtenerDonacionesPorEstado(idUsuario, estado);
+        }else{
+            donacion = donacionService.obtenerTodasDonaciones(idUsuario);
+        }
         return ResponseEntity.ok(donacion);
     }
 
