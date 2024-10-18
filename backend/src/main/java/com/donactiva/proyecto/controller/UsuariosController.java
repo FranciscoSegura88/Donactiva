@@ -1,6 +1,9 @@
 package com.donactiva.proyecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,21 +25,32 @@ public class UsuariosController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     // Métodos GET
     
     @GetMapping("/login")
-    public String login(@RequestParam String correo, @RequestParam String contraseña) {
+    public ResponseEntity<String> login(@RequestParam String correo, @RequestParam String contraseña) {
 
         Usuarios usuario = usuarioService.obtenerUsuarioPorCorreo(correo);
 
-        if (usuario != null && usuario.getContraseña().equals(contraseña)){
-            return jwtUtil.generarToken(usuario.getNombre(), usuario.getCorreo(), usuario.getContraseña());
+        if (usuario != null && passwordEncoder.matches(contraseña, usuario.getContraseña())){
+            String token = jwtUtil.generarToken(usuario.getNombre(), usuario.getCorreo(), usuario.getRol().name());
+            return ResponseEntity.ok("Hola, "+ usuario.getNombre() +". Su token es: " +  token);
         }
-        return "";
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales invalidas");
     }
     
     @PostMapping("/signup")
-    public void guardarUsuario(@RequestBody Usuarios usuario){
-        usuarioService.guardarUsuario(usuario);
+    public ResponseEntity<String> guardarUsuario(@RequestBody Usuarios usuario){
+        try{
+            usuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
+            usuarioService.guardarUsuario(usuario);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("Usuario creado exitosamente");
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear el usuario.");
+        }
     }
 }

@@ -1,8 +1,11 @@
 package com.donactiva.proyecto.model;
 
 import jakarta.validation.constraints.Email;
+
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +19,12 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Getter @Setter
 public class Usuarios {
+
+    public enum Rol{
+        USUARIO,
+        INSTITUCION,
+        ADMIN
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +40,6 @@ public class Usuarios {
     @NonNull
     private String contraseña;
 
+    @Enumerated(EnumType.STRING)
+    private Rol rol = Rol.USUARIO;
 }
