@@ -44,10 +44,10 @@ public class DonacionController {
       @GetMapping("/misDonaciones")
       public ResponseEntity<Iterable<Donacion>> obtenerDonaciones(
         @RequestParam int idUsuario,
-        @RequestParam(required = false) EstadoDonacion estado) {
+        @RequestParam(required = false) EstadoDonacion estadoDonacion) {
         Iterable<Donacion> donacion;
-        if(estado != null){
-            donacion = donacionService.obtenerDonacionesPorEstado(idUsuario, estado);
+        if(estadoDonacion != null){
+            donacion = donacionService.obtenerDonacionesPorEstado(idUsuario, estadoDonacion);
         }else{
             donacion = donacionService.obtenerTodasDonaciones(idUsuario);
         }

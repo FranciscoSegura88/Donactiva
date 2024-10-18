@@ -23,13 +23,13 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class Donacion {
 
+    private LocalDateTime fechaRecolectada;
+
     public enum EstadoDonacion {
         PENDIENTE,
         CADUCADA,
         RECOLECTADA
     }
-
-    private LocalDateTime fechaRecolectada;
 
     public void setFechaRecolectada(LocalDateTime fechaRecolectada){
         this.fechaRecolectada = fechaRecolectada;
