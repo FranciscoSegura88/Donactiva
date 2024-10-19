@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.donactiva.proyecto.service.DonacionService;
@@ -21,7 +22,7 @@ import com.donactiva.proyecto.model.Donacion.EstadoDonacion;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class DonacionController {
