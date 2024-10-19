@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.donactiva.proyecto.service.PuntosService;
 import com.donactiva.proyecto.model.Puntos.EstadoPuntos;
 import com.donactiva.proyecto.model.Puntos;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/puntos")
 public class PuntosController {

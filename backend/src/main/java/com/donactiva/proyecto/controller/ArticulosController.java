@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.donactiva.proyecto.model.Articulos;
 import com.donactiva.proyecto.service.ArticulosService;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class ArticulosController {
