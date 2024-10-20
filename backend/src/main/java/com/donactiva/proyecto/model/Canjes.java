@@ -15,35 +15,27 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-
 @Entity
-@Table(name = "puntos")
+@Table(name = "canjes")
 @NoArgsConstructor
 @Getter @Setter
-public class Puntos {
+public class Canjes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idPuntos;
+    private int idCanje;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)
     private Usuarios usuario;
-    
-    @ManyToOne
-    @JoinColumn(name = "idDonacion", nullable = false)
-    private Donacion donacion;
 
-    @ManyToOne
-    @JoinColumn(name = "idArticulo", nullable = false)
-    private Articulos articulo;
+    @Column(name = "puntosCanjeados", nullable = false, updatable = false)
+    private int puntosCanjeados;
 
-    @Column(name = "fechaObtencion", nullable = false, updatable = false)
+    @Column(name = "fechaCanje", nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime fechaObtencion;
+    private LocalDateTime fechaCanje;
 
-    @Column(name = "cantidad", nullable = false, updatable = false)
-    private int cantidad;
-
-
+    @Column(name = "convenio", nullable = false, updatable = false)
+    private String convenio;
 }
