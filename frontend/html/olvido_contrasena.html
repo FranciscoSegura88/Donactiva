@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="../css/olvido_contrasena.css"> <!-- Asegúrate de tener este archivo CSS -->
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <a href="principal.html">
+    <div class="container">       
+        
+            <div class="logo">
             <img src="../img/logo.png" alt="Logo" class="logo">
-            </a>
-        </div>
-    </header>
-    <div class="container">
+            </div>
+
         <h2>Restablecer Contraseña</h2>
+
         <form action="/reset-password" method="POST">
+
             <div class="form-group">
                 <label for="new-password">Nueva Contraseña:</label>
                 <input type="password" id="new-password" name="new-password" required>
