@@ -66,5 +66,4 @@ public class JwtUtil {
             Claims claims = extractAllClaims(token);
             return claims.get("rol", String.class);
         }
-
 }

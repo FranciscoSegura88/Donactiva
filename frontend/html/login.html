@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login con cuenta existente</title>
+    <title>Login</title>
     <link rel="stylesheet" href="../css/login.css">
+    <script src="../js/auth.js"></script>
 </head>
 <body>
     <div class="logo">
@@ -33,13 +34,13 @@
         <script>
             document.getElementById('loginForm').addEventListener('submit', function(event){
                 event.preventDefault();
+                
                 const correo = document.getElementById('email').value;
                 const contraseña = document.getElementById('password').value;
 
                 login(correo, contraseña);
             });
         </script>
-
     </div>
 </body>
 </html>
