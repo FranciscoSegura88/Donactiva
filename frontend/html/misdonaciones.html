@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Donaciones</title>
+    <link rel="stylesheet" href="../css/misdonaciones.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="principal.html">
+            <img src="../img/logo.png" alt="Logo" class="logo">
+            </a>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Mis Donaciones</h1>
+
+        <!-- Sección de canjeo de puntos -->
+        <div class="puntos-section">
+            <div class="puntos-para-canjear">
+                <span>Puntos para Canjear:</span>
+                <span id="puntos-para-canjear">0</span> <!-- Aquí se mostrarán los puntos -->
+            </div>
+            <button id="canjear-puntos">Canjear Puntos</button>
+        </div>
+
+        <!-- Sección de puntos totales y puntos usados -->
+        <div class="puntos-info">
+            <div class="puntos-totales">
+                <span>Puntos Totales Ganados:</span>
+                <span id="puntos-totales">0</span>
+            </div>
+            <div class="puntos-usados">
+                <span>Puntos Usados:</span>
+                <span id="puntos-usados">0</span>
+            </div>
+        </div>
+
+        <!-- Dropdown de donaciones pendientes -->
+        <div class="donation-section">
+            <button class="dropdown-btn">Donaciones Pendientes</button>
+            <div class="dropdown-content" id="pendientes">
+                <ul id="donaciones-pendientes">
+                    <li>Donación de ropa - 20 puntos</li>
+                    <li>Donación de juguetes - 15 puntos</li>
+                    <li>Donación de libros - 10 puntos</li>
+                </ul>
+                <p class="total-puntos" id="total-pendientes">Total puntos: 45</p>
+            </div>
+        </div>
+
+        <!-- Dropdown de donaciones caducadas -->
+        <div class="donation-section">
+            <button class="dropdown-btn">Donaciones Caducadas</button>
+            <div class="dropdown-content" id="caducadas">
+                <ul id="donaciones-caducadas">
+                    <li>Donación de alimentos - 30 puntos</li>
+                    <li>Donación de calzado - 25 puntos</li>
+                </ul>
+                <p class="total-puntos" id="total-caducadas">Total puntos: 55</p>
+            </div>
+        </div>
+
+        <!-- Dropdown de donaciones recaudadas -->
+        <div class="donation-section">
+            <button class="dropdown-btn">Donaciones Recaudadas</button>
+            <div class="dropdown-content" id="recaudadas">
+                <ul id="donaciones-recaudadas">
+                    <li>Donación de artículos escolares - 40 puntos</li>
+                    <li>Donación de muebles - 50 puntos</li>
+                    <li>Donación de electrónicos - 60 puntos</li>
+                </ul>
+                <p class="total-puntos" id="total-recaudadas">Total puntos: 150</p>
+            </div>
+        </div>
+
+        <!-- Añadir el popup debajo de la sección principal -->
+        <div id="popup-canjeo" class="popup">
+            <div class="popup-content">
+                <span class="close-btn">&times;</span>
+                <h2>Canjear Puntos</h2>
+                <p>Elige dónde deseas canjear tus puntos:</p>
+                <form id="form-canjeo">
+                    <label>
+                        <input type="radio" name="opcion-canjeo" value="spin-premia" /> Spin Premia - <span>100 puntos</span>
+                    </label><br>
+                    <label>
+                        <input type="radio" name="opcion-canjeo" value="cinepolis" /> Cinépolis - <span>200 puntos</span>
+                    </label><br>
+                    <label>
+                        <input type="radio" name="opcion-canjeo" value="walmart" /> Walmart - <span>300 puntos</span>
+                    </label><br>
+                </form>
+                <button id="confirmar-canjeo" class="confirm-btn">Confirmar Canjeo</button>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <script src="../js/misdonaciones.js"></script>
+</body>
+</html>

@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.donactiva.proyecto.model.Articulos;
 import com.donactiva.proyecto.service.ArticulosService;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class ArticulosController {
@@ -26,11 +27,13 @@ public class ArticulosController {
 
     @GetMapping("/getArticulos")
     public Optional<Articulos> obtenerArticulosPorId(@RequestParam int id) {
+       
         return articulosService.obtenerArticulosPorId(id);
     }
 
     @PostMapping("/guardarArticulos")
     public ResponseEntity<Articulos> guardarArticulos(@RequestBody Articulos articulos) {
+        
         Articulos nuevoArticulo = articulosService.guardarArticulos(articulos);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoArticulo);
     }

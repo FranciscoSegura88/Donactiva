@@ -7,21 +7,22 @@ import java.util.Optional;
 import com.donactiva.proyecto.repository.LocalizacionRepository;
 import com.donactiva.proyecto.model.Localizacion;
 
-interface LocalizacionServiceInterface{
+interface LocalizacionServiceInterface {
     Iterable<Localizacion> obtenerTodasLocalizaciones();
+
     Optional<Localizacion> obtenerLocalizacionPorId(int id);
+
     Localizacion guardarLocalizacion(Localizacion localizacion);
 }
 
 @Service
-public class LocalizacionService implements LocalizacionServiceInterface{
-
+public class LocalizacionService implements LocalizacionServiceInterface {
 
     @Autowired
     private LocalizacionRepository localizacionRepository;
 
     @Override
-    public Iterable<Localizacion> obtenerTodasLocalizaciones(){
+    public Iterable<Localizacion> obtenerTodasLocalizaciones() {
         return localizacionRepository.findAll();
     }
 
@@ -31,7 +32,7 @@ public class LocalizacionService implements LocalizacionServiceInterface{
     }
 
     @Override
-    public Localizacion guardarLocalizacion(Localizacion localizacion){
+    public Localizacion guardarLocalizacion(Localizacion localizacion) {
         return localizacionRepository.save(localizacion);
     }
 }
