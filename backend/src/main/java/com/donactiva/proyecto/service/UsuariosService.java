@@ -9,38 +9,58 @@ import java.util.Optional;
 import com.donactiva.proyecto.model.Usuarios;
 import com.donactiva.proyecto.repository.UsuariosRepository;
 
-
 interface UsuarioService {
     Usuarios obtenerUsuarioPorCorreo(String correo);
-    void guardarUsuario(Usuarios usuario);
-    List<Usuarios> listarUsuarios();
+
     Optional<Usuarios> obtenerUsuarioPorId(int id);
+
+    void guardarUsuario(Usuarios usuario);
+
+    void actualizarPuntos(Usuarios usuario, int cantidadPuntos, boolean operacion);
+
+    List<Usuarios> listarUsuarios();
+
 }
 
 @Service
 public class UsuariosService implements UsuarioService {
 
     @Autowired
-    private UsuariosRepository usuarioRepository;
+    private UsuariosRepository usuariosRepository;
 
     @Override
     public Usuarios obtenerUsuarioPorCorreo(String correo) {
-        return usuarioRepository.findByCorreo(correo);
+        return usuariosRepository.findByCorreo(correo);
     }
 
     @Override
     public void guardarUsuario(Usuarios usuario) {
-        usuarioRepository.save(usuario);
+        usuariosRepository.save(usuario);
+    }
+
+    @Override
+    public void actualizarPuntos(Usuarios usuario, int cantidadPuntos, boolean operacion) {
+        int puntosGanados = usuario.getPuntosGanados();
+        int puntosUsados = usuario.getPuntosUsados();
+        if (operacion == true) {
+            puntosGanados += cantidadPuntos;
+            usuario.setPuntosGanados(puntosGanados);
+        } else {
+            puntosUsados += cantidadPuntos;
+            usuario.setPuntosUsados(puntosUsados);
+        }
+        usuario.setPuntosDisponibles(puntosGanados - puntosUsados);
+        guardarUsuario(usuario);
     }
 
     @Override
     public List<Usuarios> listarUsuarios() {
-        return (List<Usuarios>) usuarioRepository.findAll();
+        return (List<Usuarios>) usuariosRepository.findAll();
     }
 
     @Override
-    public Optional<Usuarios> obtenerUsuarioPorId(int id){
-        return usuarioRepository.findById(id);
+    public Optional<Usuarios> obtenerUsuarioPorId(int idUsuario) {
+        return usuariosRepository.findById(idUsuario);
     }
 
 }
