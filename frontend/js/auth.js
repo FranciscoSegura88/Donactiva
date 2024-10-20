@@ -34,7 +34,7 @@ async function login(correo, contraseña){
     function logout(){
         sessionStorage.removeItem('token');
         //TODO: Agregar redireccion
-        window.location.href = '';
+        window.location.href = '../html/login.html';
     }
 }
 
@@ -76,10 +76,13 @@ async function setArticulos(noPerecederos, higiene, textiles, juguetes) {
             juguetes: juguetes
         };
 
+        const token = sessionStorage.getItem(token);
+
         const response = await fetch(`${apiUrl}/api/guardarArticulos`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(data)
         });

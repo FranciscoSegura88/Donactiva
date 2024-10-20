@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping
+@RequestMapping("/api")
 public class LocalizacionController {
 
     @Autowired

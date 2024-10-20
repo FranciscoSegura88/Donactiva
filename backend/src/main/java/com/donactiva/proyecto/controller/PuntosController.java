@@ -14,7 +14,7 @@ import com.donactiva.proyecto.model.Puntos;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/puntos")
+@RequestMapping("/api")
 public class PuntosController {
 
     @Autowired

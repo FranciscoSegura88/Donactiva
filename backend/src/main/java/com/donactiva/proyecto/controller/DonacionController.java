@@ -37,13 +37,11 @@ public class DonacionController {
                                                     @RequestParam int idUsuario) {
         Donacion nuevaDonacion = donacionService.guardarDonacion(donacion, idArticulo, idLocalizacion, idUsuario);
 
-    
-          
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaDonacion);
-      }
+    }
 
-      @GetMapping("/misDonaciones")
-      public ResponseEntity<Iterable<Donacion>> obtenerDonaciones(
+    @GetMapping("/misDonaciones")
+    public ResponseEntity<Iterable<Donacion>> obtenerDonaciones(
         @RequestParam int idUsuario,
         @RequestParam(required = false) EstadoDonacion estadoDonacion) {
         Iterable<Donacion> donacion;
@@ -57,13 +55,11 @@ public class DonacionController {
 
     @PutMapping("/recolectada/{id}")
     public ResponseEntity<Donacion> marcarComoRecolectadaEntity(@PathVariable int id) {
-    try {
-        Donacion donacionOpt = donacionService.marcarComoRecolectada(id);
-        return ResponseEntity.ok(donacionOpt);
-    } catch (EntityNotFoundException e) {
-        return ResponseEntity.notFound().build();
+        try {
+            Donacion donacionOpt = donacionService.marcarComoRecolectada(id);
+            return ResponseEntity.ok(donacionOpt);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
-}
-      
-      
 }

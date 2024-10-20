@@ -38,7 +38,7 @@ public class UsuariosController {
         Usuarios usuario = usuarioService.obtenerUsuarioPorCorreo(correo);
 
         if (usuario != null && passwordEncoder.matches(contraseña, usuario.getContraseña())){
-            String token = jwtUtil.generarToken(usuario.getNombre(), usuario.getCorreo(), usuario.getRol().name());
+            String token = jwtUtil.generarToken(usuario.getIdUsuario(), usuario.getNombre(), usuario.getCorreo(), usuario.getRol().name());
             return ResponseEntity.ok("Hola, "+ usuario.getNombre() +". Su token es: " +  token);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales invalidas");
@@ -47,6 +47,11 @@ public class UsuariosController {
     @PostMapping("/signup")
     public ResponseEntity<String> guardarUsuario(@RequestBody Usuarios usuario){
         try{
+
+            if(usuario.getCorreo() != null){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("El usuario ya existe");
+            }
+
             usuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
             usuarioService.guardarUsuario(usuario);
 
