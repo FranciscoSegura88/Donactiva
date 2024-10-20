@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Donación</title>
+    <link rel="stylesheet" href="../css/articulos.css">
+    <script src="../js/auth.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="principal.html">
+            <img src="../img/logo.png" alt="Logo" class="logo">
+            </a>
+        </div>
+    </header>
+
+
+    <div class="container">
+        <h1>Elige los Artículos a Donar</h1>
+
+        <form id="donationForm">
+
+            <!-- Opción: No perecederos -->
+            <div class="form-group">
+                <label for="no-perecederos">No perecederos</label>
+                <button type="button" class="btn-decrement" onclick="updateQuantity('no-perecederos', -1)">-</button>
+                <input type="number" id="no-perecederos" name="no-perecederos" min="0" value="0" readonly>
+                <button type="button" class="btn-increment" onclick="updateQuantity('no-perecederos', 1)">+</button>
+            </div>
+
+            <!-- Opción: Higiene -->
+            <div class="form-group">
+                <label for="higiene">Artículos de higiene</label>
+                <button type="button" class="btn-decrement" onclick="updateQuantity('higiene', -1)">-</button>
+                <input type="number" id="higiene" name="higiene" min="0" value="0" readonly>
+                <button type="button" class="btn-increment" onclick="updateQuantity('higiene', 1)">+</button>
+            </div>
+
+            <!-- Opción: Ropa o cobijas -->
+            <div class="form-group">
+                <label for="textiles">Ropa o cobijas</label>
+                <button type="button" class="btn-decrement" onclick="updateQuantity('textiles', -1)">-</button>
+                <input type="number" id="textiles" name="textiles" min="0" value="0" readonly>
+                <button type="button" class="btn-increment" onclick="updateQuantity('textiles', 1)">+</button>
+            </div>
+
+            <!-- Opción: Juguetes -->
+            <div class="form-group">
+                <label for="juguetes">Juguetes</label>
+                <button type="button" class="btn-decrement" onclick="updateQuantity('juguetes', -1)">-</button>
+                <input type="number" id="juguetes" name="juguetes" min="0" value="0" readonly>
+                <button type="button" class="btn-increment" onclick="updateQuantity('juguetes', 1)">+</button>
+            </div>
+
+            <!-- Boton Enviar -->
+            <button type="submit" class="btn">Enviar Donación</button>
+
+        </form>
+    </div>
+    <script>
+        document.getElementById('donationForm').addEventListener('submit', function(event){
+            event.preventDefault();
+
+        const noPerecederos = parseInt(document.getElementById('no-perecederos').value) || 0;
+        const textiles = parseInt(document.getElementById('textiles').value) || 0;
+        const higiene = parseInt(document.getElementById('higiene').value) || 0;
+        const juguetes = parseInt(document.getElementById('juguetes').value) || 0;
+
+        setArticulos(noPerecederos, higiene, textiles, juguetes)
+            });
+    </script>
+</body>
+</html>
