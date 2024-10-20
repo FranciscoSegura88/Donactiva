@@ -6,9 +6,26 @@
     box-sizing: border-box;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 8px;
+}   
+
+.logo {
+    display: flex;
+    justify-content: flex-start; 
+    margin-bottom: 20px;
+    width: 200px; 
+    height: auto;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f2f5;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {

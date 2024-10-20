@@ -14,7 +14,7 @@ import com.donactiva.proyecto.service.LocalizacionService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping
+@RequestMapping("/api")
 public class LocalizacionController {
 
     @Autowired

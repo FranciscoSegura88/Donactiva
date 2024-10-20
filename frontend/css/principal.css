@@ -22,9 +22,6 @@ header {
 .logo{
     display: flex;
     align-items: center;
-}
-
-.logo {
     width: 300px;
     margin-right: 10px;
 }
