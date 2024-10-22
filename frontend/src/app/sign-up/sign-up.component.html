@@ -1,0 +1,30 @@
+<div class="wrapper">
+    <div class="logo">
+        <img src="logo.png" alt="">
+    </div>
+    <div class="text-center mt-4 name">
+        Donactiva
+    </div>
+    <form class="p-3 mt-3">
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="text" name="userName" id="userName" placeholder="Nombre">
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="text" name="correoUsuario" id="correoUsuario" placeholder="Correo">
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="password" name="contraseña" id="contraseña" placeholder="Contraseña">
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="password" name="confirmacionContraseña" id="confirmacionContraseña" placeholder="Confirma contraseña">
+        </div>
+        <button class="btn mt-3">Registrate</button>
+    </form>
+    <div class="text-center fs-6">
+        Ya tienes una cuenta?<a [routerLink]="['/login']">  Inicia sesion</a>
+    </div>
+</div>
