@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="signup-modal">
     <div class="logo">
         <img src="logo.png" alt="">
     </div>
@@ -23,8 +23,9 @@
             <input type="password" name="confirmacionContraseña" id="confirmacionContraseña" placeholder="Confirma contraseña">
         </div>
         <button class="btn mt-3">Registrate</button>
+        <button type="button" class="btn mt-3" (click)="onClose()">Cerrar</button>
     </form>
     <div class="text-center fs-6">
-        Ya tienes una cuenta?<a [routerLink]="['/login']">  Inicia sesion</a>
+        ¿Ya tienes una cuenta?<a href="#" (click)="onSwitchToLogin(); $event.preventDefault();"> Inicia sesión</a>
     </div>
 </div>
