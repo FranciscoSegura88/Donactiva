@@ -3,8 +3,8 @@
 
     <div class="auth-buttons d-flex flex-column align-items-end">
         @if (isLoggedIn == false) {
-            <button class="btn btn-primary mb-2" (click)="toggleLogin()">Iniciar sesión</button>
-            <button class="btn btn-primary mb-2" (click)="toggleSignUp()">Registrarse</button>
+            <button class="btn btn-primary mb-2 w-100 btn-lg" (click)="toggleLogin()">Iniciar sesión</button>
+            <button class="btn btn-primary mb-2 w-100 btn-lg" (click)="toggleSignUp()">Registrarse</button>
         } @else {
             <img src="logo.png" alt="logo" class="user-logo">
         }
