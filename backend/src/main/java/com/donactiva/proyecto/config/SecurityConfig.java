@@ -51,6 +51,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     }
 
     // Bean para manejo de errores
+    @SuppressWarnings("unused")
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return (request, response, authException) -> {

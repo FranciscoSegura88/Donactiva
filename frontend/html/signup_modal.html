@@ -1,0 +1,105 @@
+<div id="signupModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div class="flex justify-between items-center mb-4">
+            <h2 id="modalTitle" class="text-xl font-semibold">Registrarse</h2>
+            <button id="closeSignupModal" class="text-gray-600 hover:text-gray-800">&times;</button>
+        </div>
+        
+        <!-- Formulario de Registro -->
+        <form id="signupForm" class="space-y-4">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700">Nombre</label>
+                <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700">Correo electrónico</label>
+                <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700">Contraseña</label>
+                <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <div class="mb-4">
+                <label for="confirmPassword" class="block text-gray-700">Confirmar contraseña</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="w-full p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">Registrarse</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Mostrar el modal de registro
+    const showSignupModalButton = document.getElementById('showSignupModal');
+    showSignupModalButton.addEventListener('click', function() {
+        const modal = document.getElementById('signupModal');
+        modal.classList.remove('hidden');  // Muestra el modal
+        document.body.classList.add('modal-open'); // Aplica el desenfoque al fondo
+    });
+
+    // Cerrar el modal de registro
+    const closeSignupModalButton = document.getElementById('closeSignupModal');
+    closeSignupModalButton.addEventListener('click', function() {
+        const modal = document.getElementById('signupModal');
+        modal.classList.add('hidden');  // Oculta el modal
+        document.body.classList.remove('modal-open'); // Quita el desenfoque al fondo
+    });
+
+    // Capturamos el formulario de registro
+    const signupForm = document.getElementById('signupForm');
+
+    // Enviar el formulario de registro
+    signupForm.addEventListener('submit', function(event) {
+        event.preventDefault();  // Evita el comportamiento por defecto del formulario
+
+        // Obtener los valores de los campos
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        // Verificar que las contraseñas coincidan
+        if (password !== confirmPassword) {
+            alert('Las contraseñas no coinciden');
+            return;
+        }
+
+        // Crear un objeto con los datos del formulario
+        const data = {
+            name: name,
+            email: email,
+            password: password
+        };
+
+        // Enviar la petición al backend
+        fetch('http://localhost:8080/api/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())  // Cambiado a .json() si la respuesta es JSON
+        .then(data => {
+            if (data.success) {
+                alert('Usuario registrado con éxito');
+                const modal = document.getElementById('signupModal');
+                modal.classList.add('hidden');  // Cierra el modal después de registrarse
+                document.body.classList.remove('modal-open'); // Quita el desenfoque del fondo
+            } else {
+                alert('Error al registrar el usuario: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error al registrar:', error);
+            alert('Hubo un problema al registrarse. Por favor intente de nuevo.');
+        });
+    });
+</script>
+
+<style>
+    /* Agregar desenfoque al fondo cuando se muestra el modal */
+    body.modal-open {
+        filter: blur(5px);
+    }
+</style>

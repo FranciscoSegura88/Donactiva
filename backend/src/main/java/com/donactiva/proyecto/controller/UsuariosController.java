@@ -29,10 +29,8 @@ public class UsuariosController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    // Métodos GET
     
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String correo, @RequestParam String contraseña) {
 
         Usuarios usuario = usuarioService.obtenerUsuarioPorCorreo(correo);
@@ -48,7 +46,7 @@ public class UsuariosController {
     public ResponseEntity<String> guardarUsuario(@RequestBody Usuarios usuario){
         try{
 
-            if(usuario.getCorreo() != null){
+            if(usuarioService.obtenerUsuarioPorCorreo(usuario.getCorreo()) != null){
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("El usuario ya existe");
             }
 

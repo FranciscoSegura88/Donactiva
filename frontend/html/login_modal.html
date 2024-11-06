@@ -1,0 +1,94 @@
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div class="flex justify-between items-center mb-4">
+            <h2 id="modalTitle" class="text-xl font-semibold">Iniciar sesión</h2>
+            <button id="closeModal" class="text-gray-600 hover:text-gray-800">&times;</button>
+        </div>
+        
+        <!-- Formulario para Login -->
+        <form id="loginForm" class="space-y-4">
+            <div class="mb-4">
+                <label for="emailLogin" class="block text-gray-700">Correo electrónico</label>
+                <input type="email" id="emailLogin" name="email" class="w-full p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <div class="mb-4">
+                <label for="passwordLogin" class="block text-gray-700">Contraseña</label>
+                <input type="password" id="passwordLogin" name="password" class="w-full p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">Iniciar sesión</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Mostrar el modal de inicio de sesión
+    const showLoginModalButton = document.getElementById('showLoginModal');
+    showLoginModalButton.addEventListener('click', function() {
+        const modal = document.getElementById('modal');
+        modal.classList.remove('hidden');  // Muestra el modal
+        document.body.classList.add('modal-open'); // Aplica el desenfoque al fondo
+    });
+
+    // Cerrar el modal de inicio de sesión
+    const closeModalButton = document.getElementById('closeModal');
+    closeModalButton.addEventListener('click', function() {
+        const modal = document.getElementById('modal');
+        modal.classList.add('hidden');  // Oculta el modal
+        document.body.classList.remove('modal-open'); // Quita el desenfoque al fondo
+    });
+
+    // Capturamos el formulario de login
+    const loginForm = document.getElementById('loginForm');
+
+    // Enviar el formulario de login
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();  // Evita el comportamiento por defecto del formulario
+
+        // Obtener los valores de los campos
+        const email = document.getElementById('emailLogin').value;
+        const password = document.getElementById('passwordLogin').value;
+
+        // Crear un objeto con los datos del formulario
+        const data = {
+            email: email,
+            password: password
+        };
+
+        // Enviar la petición al backend
+        fetch('http://localhost:8080/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())  // Cambiado a .json() si la respuesta es JSON
+        .then(data => {
+            if (data.success) {
+                // Guardar el token en localStorage
+                localStorage.setItem('authToken', data.token);
+
+                // Mostrar mensaje de éxito
+                alert('Inicio de sesión exitoso');
+                
+                // Cerrar el modal después de iniciar sesión
+                const modal = document.getElementById('modal');
+                modal.classList.add('hidden');
+                document.body.classList.remove('modal-open'); // Quitar el desenfoque del fondo
+            } else {
+                alert('Error al iniciar sesión: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error al iniciar sesión:', error);
+            alert('Hubo un problema al iniciar sesión. Por favor intente de nuevo.');
+        });
+    });
+</script>
+
+<style>
+    /* Agregar desenfoque al fondo cuando se muestra el modal */
+    body.modal-open {
+        filter: blur(5px);
+    }
+</style>
