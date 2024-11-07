@@ -42,10 +42,10 @@ public class UsuariosController {
 
         if (usuario != null && passwordEncoder.matches(contraseña, usuario.getContraseña())){
             String token = jwtUtil.generarToken(usuario.getIdUsuario(), usuario.getNombre(), usuario.getCorreo(), usuario.getRol().name());
-            LoginResponseDTO response = new LoginResponseDTO("Inicio de sesión exitoso" + token, token);
+            LoginResponseDTO response = new LoginResponseDTO(true,"Inicio de sesión exitoso", token);
             return ResponseEntity.ok(response);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponseDTO("Credenciales inválidas", null));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponseDTO(false, "Credenciales inválidas", null));
     }
     
     @PostMapping("/signup")

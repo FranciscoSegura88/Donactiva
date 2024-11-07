@@ -69,7 +69,23 @@
         registerBtn.addEventListener('click', () => openModal('signup'));
     </script>
     <script src="login_modal.js"></script>
+    <script>
+        // Mostrar el modal de inicio de sesión
+        const showLoginModalButton = document.getElementById('showLoginModal');
+        showLoginModalButton.addEventListener('click', function() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hidden');  // Muestra el modal
+            document.body.classList.add('modal-open'); // Aplica el desenfoque al fondo
+        });
     
+        // Cerrar el modal de inicio de sesión
+        const closeModalButton = document.getElementById('closeModal');
+        closeModalButton.addEventListener('click', function() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');  // Oculta el modal
+            document.body.classList.remove('modal-open'); // Quita el desenfoque al fondo
+        });
+    </script>
     
 </body>
 </html>

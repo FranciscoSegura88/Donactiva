@@ -23,7 +23,7 @@ function handleLogin() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.success ) {
+            if (data.success) {
                 localStorage.setItem('authToken', data.token);
                 alert('Inicio de sesión exitoso');
                 const modal = document.getElementById('modal');
