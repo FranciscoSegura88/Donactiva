@@ -14,7 +14,7 @@ function handleLogin() {
             contraseña: password
         };
 
-        fetch('http://localhost:8080/api/login', {
+        const response = fetch('http://localhost:8080/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ function handleLogin() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.success ) {
+            if (data.ok) {
                 localStorage.setItem('authToken', data.token);
                 alert('Inicio de sesión exitoso');
                 const modal = document.getElementById('modal');
