@@ -35,13 +35,14 @@
 
         function openModal(modalType) {
             let modalFile = modalType === 'login' ? 'login_modal.html' : 'signup_modal.html';
-
+            
             fetch(modalFile)
-                .then(response => response.text())
-                .then(data => {
-                    modalContainer.innerHTML = data;
-                    const modal = document.getElementById(modalType === 'login' ? 'modal' : 'signupModal');
-                    const closeModal = document.getElementById('closeSignupModal') || document.getElementById('closeModal');
+            .then(response => response.text())
+            .then(data => {
+                modalContainer.innerHTML = data;
+                const modal = document.getElementById(modalType === 'login' ? 'modal' : 'signupModal');
+                const closeModal = document.getElementById('closeSignupModal') || document.getElementById('closeModal');
+                
 
                 //login
                 document.getElementById("loginForm").addEventListener('submit', (e) => {
@@ -74,5 +75,8 @@
         registerBtn.addEventListener('click', () => openModal('signup'));
 
     </script>
+    <script src="login_modal.js"></script>
+    
+    
 </body>
 </html>
