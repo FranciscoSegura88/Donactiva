@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.donactiva.proyecto.dtos.LoginRequestDTO;
+import com.donactiva.proyecto.dtos.LoginResponseDTO;
 import com.donactiva.proyecto.model.Usuarios;
 import com.donactiva.proyecto.service.UsuariosService;
 import com.donactiva.proyecto.util.JwtUtil;
@@ -31,15 +33,19 @@ public class UsuariosController {
     private PasswordEncoder passwordEncoder;
     
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String correo, @RequestParam String contraseña) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequest) {
 
+        String correo = loginRequest.getCorreo();
+        String contraseña = loginRequest.getContraseña();
+    
         Usuarios usuario = usuarioService.obtenerUsuarioPorCorreo(correo);
 
         if (usuario != null && passwordEncoder.matches(contraseña, usuario.getContraseña())){
             String token = jwtUtil.generarToken(usuario.getIdUsuario(), usuario.getNombre(), usuario.getCorreo(), usuario.getRol().name());
-            return ResponseEntity.ok("Hola, "+ usuario.getNombre() +". Su token es: " +  token);
+            LoginResponseDTO response = new LoginResponseDTO("Inicio de sesión exitoso" + token, token);
+            return ResponseEntity.ok(response);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales invalidas");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponseDTO("Credenciales inválidas", null));
     }
     
     @PostMapping("/signup")
