@@ -1,11 +1,10 @@
+<!-- signup_modal.html -->
 <div id="signupModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <div class="flex justify-between items-center mb-4">
             <h2 id="modalTitle" class="text-xl font-semibold">Registrarse</h2>
             <button id="closeSignupModal" class="text-gray-600 hover:text-gray-800">&times;</button>
         </div>
-        
-        <!-- Formulario de Registro -->
         <form id="signupForm" class="space-y-4">
             <div class="mb-4">
                 <label for="name" class="block text-gray-700">Nombre</label>
@@ -27,22 +26,3 @@
         </form>
     </div>
 </div>
-
-<script>
-            //register
-            document.getElementById("signupForm").addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const nombre = getElementById("name").value;
-            const correo = getElementById("email").value;
-            const contraseña = getElementById("password").value;
-            const confContraseña = getElementById("confirmPassword").value;
-
-            if(contraseña !== confContraseña){
-                alert("La contraseña no coincide");
-            }else{
-                register(nombre, correo, contraseña);
-            }
-
-        });
-</script>

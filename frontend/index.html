@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donactiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-sans bg-gray-100">
+    <header class="flex justify-between items-center p-4 bg-white shadow-md">
+        <div class="text-xl font-bold text-blue-600">
+            <img src="img/logo-nombre.png" alt="Logo" class="w-1/2">
+        </div>
+        <div class="flex flex-col items-end space-y-4 w-48">
+            <button id="loginBtn" class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 transition duration-300 w-4/5 text-center">Iniciar sesión</button>
+            <button id="registerBtn" class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 transition duration-300 w-4/5 text-center">Registrarse</button>
+        </div>
+    </header>
+
+    <main class="p-8 text-center">
+        <section class="shadow-md p-6 bg-white w-1/2 ml-0 relative">
+            <div class="slider-box overflow-hidden relative">
+                <ul class="flex transition-transform duration-500 ease-in-out" id="carousel">
+                    <li class="min-w-full">
+                        <img src="img/ODS 2.png" alt="objetivo" class="w-full">
+                    </li>
+                    <li class="min-w-full">
+                        <img src="img/logo.png" alt="logo" class="w-full">
+                    </li>
+                    <!-- Puedes añadir más imágenes aquí -->
+                </ul>
+            </div>
+        </section>
+
+        <section class="">
+
+        </section>
+
+    </main>
+
+    <div id="modalContainer"></div>
+    
+    <script src="js/modals.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>

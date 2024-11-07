@@ -1,11 +1,10 @@
-<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+<!-- login_modal.html -->
+<div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <div class="flex justify-between items-center mb-4">
             <h2 id="modalTitle" class="text-xl font-semibold">Iniciar sesión</h2>
             <button id="closeModal" class="text-gray-600 hover:text-gray-800">&times;</button>
         </div>
-        
-        <!-- Formulario para Login -->
         <form id="loginForm" class="space-y-4">
             <div class="mb-4">
                 <label for="emailLogin" class="block text-gray-700">Correo electrónico</label>
@@ -15,16 +14,7 @@
                 <label for="passwordLogin" class="block text-gray-700">Contraseña</label>
                 <input type="password" id="passwordLogin" name="password" class="w-full p-2 border border-gray-300 rounded-md" required>
             </div>
-            <button onclick="handleLogin()" type="submit" class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">Iniciar sesión</button>
+            <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">Iniciar sesión</button>
         </form>
     </div>
 </div>
-
-
-
-<style>
-    /* Agregar desenfoque al fondo cuando se muestra el modal */
-    body.modal-open {
-        filter: blur(5px);
-    }
-</style>
