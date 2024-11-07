@@ -6,7 +6,6 @@
     <title>Donactiva</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/auth.js"></script>
 </head>
 <body class="font-sans bg-gray-100">
     <header class="flex justify-between items-center p-4 bg-white shadow-md">
@@ -26,7 +25,9 @@
 
     <div id="modalContainer"></div>
 
+    <script src="../js/auth.js"></script>
     <script>
+
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
         const modalContainer = document.getElementById('modalContainer');
@@ -42,6 +43,16 @@
                     const modal = document.getElementById(modalType === 'login' ? 'modal' : 'signupModal');
                     const closeModal = document.getElementById('closeSignupModal') || document.getElementById('closeModal');
 
+                //login
+                document.getElementById("loginForm").addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                        const correo = getElementById("emailLogin").value;
+                        const contraseña = getElementById("passwordLogin").value;
+            
+                        login(correo, contraseña);
+                    });
+
                     modal.classList.remove('hidden');
                     mainContent.classList.add('blurred');
 
@@ -49,7 +60,7 @@
                         modal.classList.add('hidden');
                         mainContent.classList.remove('blurred');
                     });
-
+                    
                     window.addEventListener('click', (event) => {
                         if (event.target === modal) {
                             modal.classList.add('hidden');
@@ -61,33 +72,6 @@
 
         loginBtn.addEventListener('click', () => openModal('login'));
         registerBtn.addEventListener('click', () => openModal('signup'));
-
-        //register
-        document.getElementById("signupForm").addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const nombre = getElementById("name").value;
-            const correo = getElementById("email").value;
-            const contraseña = getElementById("password").value;
-            const confContraseña = getElementById("confirmPassword").value;
-
-            if(contraseña !== confContraseña){
-                alert("La contraseña no coincide");
-            }else{
-                register(nombre, correo, contraseña);
-            }
-
-        });
-
-        //login
-        document.getElementById("loginForm").addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const correo = getElementById("emailLogin").value;
-            const contraseña = getElementById("passwordLogin").value;
-
-            login(correo, contraseña);
-        });
 
     </script>
 </body>

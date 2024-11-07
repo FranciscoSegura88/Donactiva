@@ -2,6 +2,7 @@ const API_URL = 'http://localhost:8080/api';
 
 async function login(correo, contraseña) {
     try{
+
         const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
             headers:{

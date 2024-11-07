@@ -28,3 +28,21 @@
     </div>
 </div>
 
+<script>
+            //register
+            document.getElementById("signupForm").addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = getElementById("name").value;
+            const correo = getElementById("email").value;
+            const contraseña = getElementById("password").value;
+            const confContraseña = getElementById("confirmPassword").value;
+
+            if(contraseña !== confContraseña){
+                alert("La contraseña no coincide");
+            }else{
+                register(nombre, correo, contraseña);
+            }
+
+        });
+</script>
