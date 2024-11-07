@@ -1,0 +1,9 @@
+/* Clase para aplicar el blur */
+.blurred {
+    filter: blur(5px);
+}
+
+/* Agregar desenfoque al fondo cuando se muestra el modal */
+body.modal-open {
+    filter: blur(5px);
+}

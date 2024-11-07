@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donactiva</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Clase para aplicar el blur */
-        .blurred {
-            filter: blur(5px);
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/auth.js"></script>
 </head>
 <body class="font-sans bg-gray-100">
     <header class="flex justify-between items-center p-4 bg-white shadow-md">
@@ -28,7 +24,6 @@
         <p class="text-lg text-gray-600">Descubre lo que tenemos para ti</p>
     </main>
 
-    <!-- Contenedor del Modal cargado -->
     <div id="modalContainer"></div>
 
     <script>
@@ -48,11 +43,11 @@
                     const closeModal = document.getElementById('closeSignupModal') || document.getElementById('closeModal');
 
                     modal.classList.remove('hidden');
-                    mainContent.classList.add('blurred'); // Aplicamos el blur aquí
+                    mainContent.classList.add('blurred');
 
                     closeModal.addEventListener('click', () => {
                         modal.classList.add('hidden');
-                        mainContent.classList.remove('blurred'); // Quitamos el blur
+                        mainContent.classList.remove('blurred');
                     });
 
                     window.addEventListener('click', (event) => {
@@ -66,6 +61,34 @@
 
         loginBtn.addEventListener('click', () => openModal('login'));
         registerBtn.addEventListener('click', () => openModal('signup'));
+
+        //register
+        document.getElementById("signupForm").addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = getElementById("name").value;
+            const correo = getElementById("email").value;
+            const contraseña = getElementById("password").value;
+            const confContraseña = getElementById("confirmPassword").value;
+
+            if(contraseña !== confContraseña){
+                alert("La contraseña no coincide");
+            }else{
+                register(nombre, correo, contraseña);
+            }
+
+        });
+
+        //login
+        document.getElementById("loginForm").addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const correo = getElementById("emailLogin").value;
+            const contraseña = getElementById("passwordLogin").value;
+
+            login(correo, contraseña);
+        });
+
     </script>
 </body>
 </html>

@@ -37,7 +37,7 @@ public class UsuariosController {
 
         if (usuario != null && passwordEncoder.matches(contraseña, usuario.getContraseña())){
             String token = jwtUtil.generarToken(usuario.getIdUsuario(), usuario.getNombre(), usuario.getCorreo(), usuario.getRol().name());
-            return ResponseEntity.ok("Hola, "+ usuario.getNombre() +". Su token es: " +  token);
+            return ResponseEntity.ok(token);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales invalidas");
     }
