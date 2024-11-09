@@ -40,10 +40,18 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error('Error al cargar el modal:', error));
     }
 
-    function closeModal(modal, backdrop) {
-        modal.style.display = 'none';  // Ocultar el modal
-        backdrop.remove();  // Eliminar el fondo
-    }
+    window.closeModal = function(modal, backdrop) {
+        modal.style.display = 'none';
+        backdrop.remove();
+    };
+
+    window.closeModalOnSuccess = function() {
+        const modal = modalContainer.querySelector('.modal');
+        const backdrop = document.getElementById('modalBackdrop');
+        if (modal && backdrop) {
+            closeModal(modal, backdrop);
+        }
+    };
 
     // Funciones de apertura para los botones de Login y Register
     loginBtn.addEventListener('click', () => {

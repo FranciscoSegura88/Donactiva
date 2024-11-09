@@ -28,6 +28,7 @@ function handleRegister() {
     })
     .then(response => {
         if (response.ok) { // Si el código de respuesta es 200-299, asumimos éxito
+            window.closeModalOnSuccess(); // Cerrar el modal si el login es exitoso
             return response.text();
         } else {
             return response.text().then(errorData => {

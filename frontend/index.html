@@ -1,109 +1,132 @@
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Donactiva</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body class="font-sans bg-gray-100">
-        <header class="flex justify-between items-center p-4 bg-white shadow-md">
-            <div class="text-xl font-bold text-blue-600">
-                <img src="img/logo-nombre.png" alt="Logo" class="w-1/2">
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donactiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="font-sans bg-gray-100">
+    <header class="flex justify-between items-center p-4 bg-white shadow-md">
+        <div class="text-xl font-bold text-blue-600">
+            <img src="img/logo-nombre.png" alt="Logo" class="w-1/2">
+        </div>
+        <div id="authSection" class="flex flex-col items-end space-y-4 w-48">
+            <!-- Botones de login y registro -->
+            <button id="loginBtn"
+                class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 transition duration-300 w-4/5 text-center">Iniciar
+                sesión</button>
+            <button id="registerBtn"
+                class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 transition duration-300 w-4/5 text-center">Registrarse</button>
+        </div>
+        <!-- Sección de saludo y menú -->
+        <div id="userSection" class="hidden flex items-center space-x-3">
+            <span id="greeting" class="text-lg font-semibold text-gray-700"></span>
+            <button id="dropdownBtn" class="text-gray-600 hover:text-gray-800">
+                <i class="fa fa-chevron-down"></i> <!-- Esto es la flecha -->
+            </button>
+            <div id="dropdownMenu" class="hidden bg-white shadow-lg rounded-md w-40 absolute right-0 mt-2 py-2">
+                <button class="px-4 py-2 text-gray-600 hover:bg-gray-200 w-full">Perfil</button>
+                <button class="px-4 py-2 text-gray-600 hover:bg-gray-200 w-full">Cerrar sesión</button>
             </div>
-            <div class="flex flex-col items-end space-y-4 w-48">
-                <button id="loginBtn" class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 transition duration-300 w-4/5 text-center">Iniciar sesión</button>
-                <button id="registerBtn" class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 transition duration-300 w-4/5 text-center">Registrarse</button>
+        </div>
+    </header>
+
+
+    <main class="flex flex-col md:flex-row p-8 space-y-8 md:space-y-0 md:space-x-8 text-center">
+
+        <!-- Carrusel -->
+        <section class="shadow-md p-6 bg-white w-full md:w-1/2 relative flex items-center justify-center">
+            <div class="slider-box overflow-hidden relative w-full">
+                <ul class="flex transition-transform duration-500 ease-in-out" id="carousel">
+                    <li class="min-w-full">
+                        <img src="img/donacion1.jpeg" alt="logo" class="aspect">
+                    </li>
+                    <li class="min-w-full">
+                        <img src="img/donacion2.jpeg" alt="logo" class="aspect">
+                    </li>
+                    <li class="min-w-full">
+                        <img src="img/donacion3.jpeg" alt="logo" class="aspect">
+                    </li>
+                    <!-- Puedes añadir más imágenes aquí -->
+                </ul>
             </div>
-        </header>
+        </section>
 
-        <main class="flex flex-col md:flex-row p-8 space-y-8 md:space-y-0 md:space-x-8 text-center">
+        <!-- Tutorial -->
+        <section class="shadow-md p-6 bg-white w-full md:w-1/2 relative">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Tutorial</h1>
+                <h3 class="text-xl text-gray-600">Cómo hacer una donación</h3>
+            </div>
 
-            <!-- Carrusel -->
-            <section class="shadow-md p-6 bg-white w-full md:w-1/2 relative flex items-center justify-center">
-                <div class="slider-box overflow-hidden relative w-full">
-                    <ul class="flex transition-transform duration-500 ease-in-out" id="carousel">
-                        <li class="min-w-full">
-                            <img src="img/donacion1.jpeg" alt="logo" class="aspect">
-                        </li>
-                        <li class="min-w-full">
-                            <img src="img/donacion2.jpeg" alt="logo" class="aspect">
-                        </li>
-                        <li class="min-w-full">
-                            <img src="img/donacion3.jpeg" alt="logo" class="aspect">
-                        </li>
-                        <!-- Puedes añadir más imágenes aquí -->
-                    </ul>
-                </div>
-            </section>
-        
-            <!-- Tutorial -->
-            <section class="shadow-md p-6 bg-white w-full md:w-1/2 relative">
-                <div class="text-center mb-8">
-                    <h1 class="text-3xl font-bold text-gray-800">Tutorial</h1>
-                    <h3 class="text-xl text-gray-600">Cómo hacer una donación</h3>
-                </div>
-                
-                <div class="bg-white p-6">
-                    <p class="text-lg text-gray-700 mb-6">¡Bienvenido al tutorial! Sigue estos pasos para completar tu donación.</p>
-                    
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-semibold text-gray-800">Paso 1: Registro de usuario</h3>
-                        <p class="text-gray-600">Si no tienes una cuenta, regístrate antes de realizar una donación.</p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-semibold text-gray-800">Paso 2: Inicia sesión</h3>
-                        <p class="text-gray-600">Ingresa con tu cuenta para acceder al formulario de donación.</p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-semibold text-gray-800">Paso 3: Selecciona el tipo de donación</h3>
-                        <p class="text-gray-600">Elige entre textil, juguetes, productos de higiene o no perecederos.</p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-semibold text-gray-800">Paso 4: Llena el formulario de donación</h3>
-                        <p class="text-gray-600">Proporciona los detalles de los artículos que donarás.</p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-semibold text-gray-800">Paso 5: Selecciona un punto de recolección</h3>
-                        <p class="text-gray-600">Escoge una ubicación para entregar tu donación.</p>
-                    </div>
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-semibold text-gray-800">Paso 6: Guarda tu QR</h3>
-                        <p class="text-gray-600">Haz captura de pantalla a tu código QR.</p>
-                    </div>
-                </div>
-                
-                <button class="text-gray-100 bg-green-400 px-4 py-2 rounded-md mt-4">Siguiente</button>
-            </section>
-        
-        </main>        
+            <div class="bg-white p-6">
+                <p class="text-lg text-gray-700 mb-6">¡Bienvenido al tutorial! Sigue estos pasos para completar tu
+                    donación.</p>
 
-        <div id="modalContainer"></div>
-        
-        <footer class="bg-gray-800 text-white py-8">
-            <div class="container mx-auto text-center">
-                <h3 class="text-2xl font-bold mb-4">Donactiva</h3>
-                <p class="text-sm mb-6">Filantropia al alcance de tus manos.</p>
-                <div class="flex justify-center space-x-6 mb-6">
-                    <a href="https://www.facebook.com/SuperSgtFranciscoSeguraValencia/" class="text-gray-400 hover:text-orange-500"><i class="fab fa-facebook text-2xl">Facebook</i></a>
-                    <a href="https://www.youtube.com/watch?v=ygI-2F8ApUM" class="text-gray-400 hover:text-orange-500"><i class="fab fa-twitter text-2xl">Twitter</i></a>
-                    <a href="https://pbs.twimg.com/media/Gb8QXbjXgAA1xlt?format=jpg&name=medium" class="text-gray-400 hover:text-orange-500"><i class="fab fa-instagram text-2xl">Instagram</i></a>
-                    <!-- Añade más iconos si lo deseas -->
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Paso 1: Registro de usuario</h3>
+                    <p class="text-gray-600">Si no tienes una cuenta, regístrate antes de realizar una donación.</p>
                 </div>
-                <div class="text-gray-500 text-sm">
-                    &copy; Donactiva
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Paso 2: Inicia sesión</h3>
+                    <p class="text-gray-600">Ingresa con tu cuenta para acceder al formulario de donación.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Paso 3: Selecciona el tipo de donación</h3>
+                    <p class="text-gray-600">Elige entre textil, juguetes, productos de higiene o no perecederos.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Paso 4: Llena el formulario de donación</h3>
+                    <p class="text-gray-600">Proporciona los detalles de los artículos que donarás.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Paso 5: Selecciona un punto de recolección</h3>
+                    <p class="text-gray-600">Escoge una ubicación para entregar tu donación.</p>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Paso 6: Guarda tu QR</h3>
+                    <p class="text-gray-600">Haz captura de pantalla a tu código QR.</p>
                 </div>
             </div>
-        </footer>
 
-        <script src="js/modals.js"></script>
-        <script src="js/carousel.js"></script>
-        <script src="js/login.js"></script>
-        <script src="js/register.js"></script>
-    </body>
-    </html>
+            <button class="text-white bg-green-400 px-4 py-2 rounded-md mt-4">Siguiente</button>
+        </section>
+
+    </main>
+
+    <div id="modalContainer"></div>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto text-center">
+            <h3 class="text-2xl font-bold mb-4">Donactiva</h3>
+            <p class="text-sm mb-6">Filantropia al alcance de tus manos.</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://www.facebook.com/SuperSgtFranciscoSeguraValencia/"
+                    class="text-gray-400 hover:text-orange-500"><i class="fab fa-facebook text-2xl">Facebook</i></a>
+                <a href="https://www.youtube.com/watch?v=ygI-2F8ApUM" class="text-gray-400 hover:text-orange-500"><i
+                        class="fab fa-twitter text-2xl">Twitter</i></a>
+                <a href="https://pbs.twimg.com/media/Gb8QXbjXgAA1xlt?format=jpg&name=medium"
+                    class="text-gray-400 hover:text-orange-500"><i class="fab fa-instagram text-2xl">Instagram</i></a>
+                <!-- Añade más iconos si lo deseas -->
+            </div>
+            <div class="text-gray-500 text-sm">
+                &copy; Donactiva
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/modals.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/register.js"></script>
+</body>
+
+</html>

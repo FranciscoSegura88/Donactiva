@@ -10,5 +10,5 @@ document.addEventListener("DOMContentLoaded", () => {
         carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
 
-    setInterval(showNextSlide, 3000);
+    setInterval(showNextSlide, 4000);
 });
