@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalContainer = document.getElementById('modalContainer');
 
     function openModal(modalType) {
-        console.log(`Abriendo el modal de ${modalType}`);  // Verifica si se ejecuta correctamente
         const modalFile = modalType === 'login' ? 'modals/login_modal.html' : 'modals/signup_modal.html';
 
         fetch(modalFile)
@@ -55,12 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funciones de apertura para los botones de Login y Register
     loginBtn.addEventListener('click', () => {
-        console.log('Botón de login presionado');
         openModal('login');
     });
 
     registerBtn.addEventListener('click', () => {
-        console.log('Botón de registro presionado');
         openModal('signup');
     });
 });

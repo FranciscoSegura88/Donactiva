@@ -17,14 +17,14 @@
         <div id="authSection" class="flex flex-col items-end space-y-4 w-48">
             <!-- Botones de login y registro -->
             <button id="loginBtn"
-                class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 transition duration-300 w-4/5 text-center">Iniciar
-                sesión</button>
-            <button id="registerBtn"
-                class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 transition duration-300 w-4/5 text-center">Registrarse</button>
+                class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 
+                transition duration-300 w-4/5 text-center">Iniciar sesión</button>
+            <button id="registerBtn" class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md 
+                hover:bg-blue-800 transition duration-300 w-4/5 text-center">Registrarse</button>
         </div>
         <!-- Sección de saludo y menú -->
         <div id="userSection" class="hidden flex items-center space-x-3">
-            <span id="greeting" class="text-lg font-semibold text-gray-700"></span>
+            <span id="sessionGreeting" class="text-lg font-semibold text-gray-700"></span>
             <button id="dropdownBtn" class="text-gray-600 hover:text-gray-800">
                 <i class="fa fa-chevron-down"></i> <!-- Esto es la flecha -->
             </button>
@@ -124,6 +124,7 @@
     </footer>
 
     <script src="js/modals.js"></script>
+    <script src="js/session.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/login.js"></script>
     <script src="js/register.js"></script>
