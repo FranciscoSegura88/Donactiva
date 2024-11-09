@@ -30,9 +30,6 @@ function updateSession(token) {
 
         // Mostrar la sección del usuario
         document.getElementById('userSection').classList.remove('hidden'); // Aseguramos que la sección de usuario sea visible
-
-        // Mostrar el menú de usuario (si tienes esta funcionalidad)
-        showUserMenu();
     } catch (error) {
         console.error('Error al decodificar el token:', error);
     }
