@@ -1,32 +1,62 @@
+// js/register.js
+
+// Función para manejar el registro de usuario
+function handleRegister() {
+    const nombre = document.getElementById('name').value;
+    const correo = document.getElementById('email').value;
+    const contraseña = document.getElementById('password').value;
+    const confirmContra = document.getElementById('confirmPassword').value;
+
+    if (contraseña !== confirmContra) {
+        alert("Las contraseñas no coinciden.");
+        return;
+    }
+
+    const userData = {
+        nombre: nombre,
+        correo: correo,
+        contraseña: contraseña
+    };
+
+    // Realizar la solicitud de registro a la API
+    const response = fetch('http://localhost:8080/api/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData)
+    })
+    .then(response => {
+        if (response.ok) { // Si el código de respuesta es 200-299, asumimos éxito
+            return response.text();
+        } else {
+            return response.text().then(errorData => {
+                // Manejar error con detalle proporcionado por el servidor
+                throw new Error(errorData.message || 'Error en el registro');
+            });
+        }
+    })
+    .then(data => {
+        alert('Registro exitoso');
+        // Redirigir o realizar otra acción después de registrarse
+    })
+    .catch(error => {
+        console.error('Error al registrarse:', error);
+        alert('Hubo un error al intentar registrarse: ' + error.message);
+    });
+}
+
+// Lógica para detectar el envío del formulario de registro en el modal
 document.addEventListener("DOMContentLoaded", () => {
     const modalContainer = document.getElementById('modalContainer');
-    
-    // Verifica que modalContainer exista antes de continuar
+
     if (modalContainer) {
         modalContainer.addEventListener("submit", (event) => {
             const form = event.target;
 
-            // Asegúrate de que es el formulario correcto
             if (form && form.id === "signupForm") {
                 event.preventDefault();
-
-                // Obtener los valores de los campos del formulario
-                const name = form.querySelector("input[name='name']").value;
-                const email = form.querySelector("input[name='email']").value;
-                const password = form.querySelector("input[name='password']").value;
-                const confPass = form.querySelector("input[name='confirmPassword']").value;
-
-                // Validar las contraseñas
-                if (password !== confPass) {
-                    alert("Las contraseñas no coinciden.");
-                    return;
-                }
-
-                // Aquí puedes agregar la lógica para hacer la petición a la API o cualquier otra acción
-                console.log("Registrarse con", name, email, password);
-
-                // Ejemplo de llamada a una función para registrar el usuario
-                // register(name, email, password);
+                handleRegister(); // Llamar a la función para manejar el registro
             }
         });
     } else {
