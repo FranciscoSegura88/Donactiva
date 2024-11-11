@@ -1,0 +1,36 @@
+*{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 
+    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 
+    'Helvetica Neue', sans-serif;
+}
+
+#loginModal, #signupModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;  /* Inicialmente oculto */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;  /* Asegura que el modal esté encima */
+}
+
+/* Fondo oscuro detrás del modal */
+#modalBackdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);  /* Fondo semitransparente */
+    z-index: 9998;  /* Justo debajo del modal */
+}
+
+/* Estilo para el contenido del modal */
+.modal-content {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    width: 400px; /* Ajusta el tamaño según sea necesario */
+}

@@ -1,0 +1,73 @@
+<div class="flex items-center justify-center w-full h-full mx-auto max-w-lg p-8 bg-gray-100">
+    <div class="w-full">
+        <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Elige los Artículos a Donar</h1>
+
+        <form id="donationForm">
+
+            <!-- Opción: No perecederos -->
+            <div class="form-group mb-4 flex items-center justify-between">
+                <label for="no-perecederos" class="text-lg text-gray-700">No perecederos</label>
+                <div class="flex items-center space-x-2">
+                    <button type="button" class="btn-decrement px-3 py-1 bg-red-500 text-white rounded"
+                        onclick="updateQuantity('no-perecederos', -1)">-</button>
+                    <input type="number" id="no-perecederos" name="no-perecederos" min="0" value="0" readonly
+                        class="w-12 text-center bg-gray-200 rounded">
+                    <button type="button" class="btn-increment px-3 py-1 bg-green-500 text-white rounded"
+                        onclick="updateQuantity('no-perecederos', 1)">+</button>
+                </div>
+            </div>
+
+            <!-- Opción: Higiene -->
+            <div class="form-group mb-4 flex items-center justify-between">
+                <label for="higiene" class="text-lg text-gray-700">Artículos de higiene</label>
+                <div class="flex items-center space-x-2">
+                    <button type="button" class="btn-decrement px-3 py-1 bg-red-500 text-white rounded"
+                        onclick="updateQuantity('higiene', -1)">-</button>
+                    <input type="number" id="higiene" name="higiene" min="0" value="0" readonly
+                        class="w-12 text-center bg-gray-200 rounded">
+                    <button type="button" class="btn-increment px-3 py-1 bg-green-500 text-white rounded"
+                        onclick="updateQuantity('higiene', 1)">+</button>
+                </div>
+            </div>
+
+            <!-- Opción: Ropa o cobijas -->
+            <div class="form-group mb-4 flex items-center justify-between">
+                <label for="textiles" class="text-lg text-gray-700">Ropa o cobijas</label>
+                <div class="flex items-center space-x-2">
+                    <button type="button" class="btn-decrement px-3 py-1 bg-red-500 text-white rounded"
+                        onclick="updateQuantity('textiles', -1)">-</button>
+                    <input type="number" id="textiles" name="textiles" min="0" value="0" readonly
+                        class="w-12 text-center bg-gray-200 rounded">
+                    <button type="button" class="btn-increment px-3 py-1 bg-green-500 text-white rounded"
+                        onclick="updateQuantity('textiles', 1)">+</button>
+                </div>
+            </div>
+
+            <!-- Opción: Juguetes -->
+            <div class="form-group mb-4 flex items-center justify-between">
+                <label for="juguetes" class="text-lg text-gray-700">Juguetes</label>
+                <div class="flex items-center space-x-2">
+                    <button type="button" class="btn-decrement px-3 py-1 bg-red-500 text-white rounded"
+                        onclick="updateQuantity('juguetes', -1)">-</button>
+                    <input type="number" id="juguetes" name="juguetes" min="0" value="0" readonly
+                        class="w-12 text-center bg-gray-200 rounded">
+                    <button type="button" class="btn-increment px-3 py-1 bg-green-500 text-white rounded"
+                        onclick="updateQuantity('juguetes', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="flex space-x-2">
+                <button type="button" 
+                    class="btn-regresar w-1/2 py-2 mt-6 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition duration-200">
+                    Regresar
+                </button>
+
+                <button type="submit"
+                    class="w-1/2 py-2 mt-6 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition duration-200">
+                    Elegir ubicación
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
