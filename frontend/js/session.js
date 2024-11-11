@@ -39,3 +39,12 @@ function showLoginRegisterButtons() {
     document.getElementById('loginBtn').style.display = 'block';
     document.getElementById('registerBtn').style.display = 'block';
 }
+
+document.getElementById('dropdownBtn').addEventListener('click', () => {
+    document.getElementById('dropdownMenu').classList.toggle('hidden');
+});
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('authToken'); // Eliminar el token
+    location.reload(); // Recargar para volver a la vista de login/registro
+});

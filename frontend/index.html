@@ -22,10 +22,17 @@
                 hover:bg-blue-800 transition duration-300 w-4/5 text-center">Registrarse</button>
         </div>
 
-        <div id="userSection" class="hidden flex items-center space-x-3">
+        <div id="userSection" class="relative hidden flex items-center space-x-3">
             <span id="sessionGreeting" class="text-lg font-semibold text-gray-700"></span>
-            <button id="dropdownBtn" class="text-gray-600 hover:text-gray-800">
+            <button id="dropdownBtn" class="text-gray-600 hover:text-gray-800">▼</button>
+        
+            <!-- Menú desplegable -->
+            <div id="dropdownMenu" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi perfil</a>
+                <button id="logoutBtn" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Cerrar sesión</button>
+            </div>
         </div>
+        
     </header>
 
 
@@ -50,48 +57,7 @@
         </section>
 
         <!-- Tutorial -->
-        <section class="shadow-md p-6 bg-white w-full md:w-1/2 relative">
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800">Tutorial</h1>
-                <h3 class="text-xl text-gray-600">Cómo hacer una donación</h3>
-            </div>
-
-            <div class="bg-white p-6">
-                <p class="text-lg text-gray-700 mb-6">¡Bienvenido al tutorial! Sigue estos pasos para completar tu
-                    donación.</p>
-
-                <div class="mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Paso 1: Registro de usuario</h3>
-                    <p class="text-gray-600">Si no tienes una cuenta, regístrate antes de realizar una donación.</p>
-                </div>
-
-                <div class="mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Paso 2: Inicia sesión</h3>
-                    <p class="text-gray-600">Ingresa con tu cuenta para acceder al formulario de donación.</p>
-                </div>
-
-                <div class="mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Paso 3: Selecciona el tipo de donación</h3>
-                    <p class="text-gray-600">Elige entre textil, juguetes, productos de higiene o no perecederos.</p>
-                </div>
-
-                <div class="mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Paso 4: Llena el formulario de donación</h3>
-                    <p class="text-gray-600">Proporciona los detalles de los artículos que donarás.</p>
-                </div>
-
-                <div class="mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Paso 5: Selecciona un punto de recolección</h3>
-                    <p class="text-gray-600">Escoge una ubicación para entregar tu donación.</p>
-                </div>
-                <div class="mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Paso 6: Guarda tu QR</h3>
-                    <p class="text-gray-600">Haz captura de pantalla a tu código QR.</p>
-                </div>
-            </div>
-
-            <button class="text-white bg-green-400 px-4 py-2 rounded-md mt-4">Siguiente</button>
-        </section>
+        <section id="rightside" class="shadow-md p-6 bg-white w-full md:w-1/2 relative"></section>
 
     </main>
 
@@ -116,6 +82,7 @@
         </div>
     </footer>
 
+    <script src="js/componentSwitch.js"></script>
     <script src="js/modals.js"></script>
     <script src="js/session.js"></script>
     <script src="js/carousel.js"></script>
