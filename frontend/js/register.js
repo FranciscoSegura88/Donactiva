@@ -38,8 +38,10 @@ function handleRegister() {
         }
     })
     .then(data => {
-        alert('Registro exitoso');
-        // Redirigir o realizar otra acción después de registrarse
+        const modal = document.getElementById('signupModal');
+        const backdrop = document.getElementById('modalBackdrop');
+        closeModal(modal, backdrop);  // Cerrar el modal
+
     })
     .catch(error => {
         console.error('Error al registrarse:', error);
