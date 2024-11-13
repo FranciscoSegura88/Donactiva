@@ -31,4 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
-.env
+/backend/src/main/resources/.env
