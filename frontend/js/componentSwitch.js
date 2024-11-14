@@ -1,3 +1,12 @@
+function openModal() {
+    document.getElementById("modalOverlay").style.display = "flex";
+}
+
+// Función para cerrar el modal
+function closeModal() {
+    document.getElementById("modalOverlay").style.display = "none";
+}
+
 // Función para cargar el componente desde un archivo HTML
 function loadComponent(componentName) {
     const rightside = document.getElementById('rightside');  // Contenedor donde se cargan los componentes
@@ -5,7 +14,7 @@ function loadComponent(componentName) {
     fetch(`modals/${componentName}.html`)  // Cargar el componente desde la carpeta 'components'
         .then(response => response.text())
         .then(data => {
-            rightside.innerHTML = data;  // Insertar el contenido del componente cargado
+            rightside.innerHTML = data;
 
             // Si el componente cargado es 'tutorial', agregar el evento para el botón "Siguiente"
             if (componentName === "tutorial") {
@@ -22,10 +31,43 @@ function loadComponent(componentName) {
                     loadComponent("tutorial");  // Cargar el componente 'tutorial'
                 });
             }
+
+            // Si el componente cargado es 'articulos', agregar el evento para el botón "Elegir Ubicación"
+            if (componentName === "articulos") {
+                const elegirUbicacionButton = document.getElementById("elegirUbicacion");  // Botón en el componente 'articulos'
+                
+                if (elegirUbicacionButton) {
+                    elegirUbicacionButton.addEventListener("click", () => {
+                        // Mostrar el modal superpuesto desde el index
+                        const modalOverlay = document.getElementById("modalOverlay");
+                        modalOverlay.style.display = "flex";  // Asegura que sea 'flex' para centrado con CSS
+                    });
+                }
+            }
+            
+            // Agregar lógica para cerrar el modal desde el botón dentro del modal
+            const closeModalButton = document.getElementById("closeModal");
+            if (closeModalButton) {
+                closeModalButton.addEventListener("click", () => {
+                    const modalOverlay = document.getElementById("modalOverlay");
+                    modalOverlay.style.display = "none";  // Oculta el modal
+                });
+            }
+
+            
+
+
         })
         .catch(error => {
             console.error("Error al cargar el componente:", error);
         });
+}
+
+// Cerrar modal
+function closeModal() {
+    const modalOverlay = document.getElementById('modalOverlay');
+    modalOverlay.style.display = 'none'; // Ocultar el modal
+    modalOverlay.innerHTML = ''; // Limpiar el contenido del modal
 }
 
 // Llamar a la función para mostrar el tutorial al cargar la página

@@ -34,3 +34,31 @@
     border-radius: 0.5rem;
     width: 400px; /* Ajusta el tamaño según sea necesario */
 }
+/* Estilos para el modal y el fondo */
+#modalOverlay {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+    z-index: 1000; /* Para asegurar que esté por encima del contenido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos para el contenido del modal */
+#modalContent {
+    background-color: white;
+    width: 80vw;
+    height: 80vh;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+}
+
+
