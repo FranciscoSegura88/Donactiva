@@ -22,9 +22,10 @@ public class MapaController {
     @GetMapping("/elegirPunto")
     public List<PuntoMapa> obtenerPuntos() {
         return Arrays.asList(
-            new PuntoMapa(-34.6037, -58.3816),
-            new PuntoMapa(-34.6097, -58.3811),
-            new PuntoMapa(-34.6013, -58.3869)
+            new PuntoMapa(20.66023887180995, -103.3475682553707),
+            new PuntoMapa(20.696808745450365, -103.37588044587726),
+            new PuntoMapa(20.67611660516869, -103.38690720936174),
+            new PuntoMapa(20.645684156767654, -103.31260262484513)
         );
     }
 
