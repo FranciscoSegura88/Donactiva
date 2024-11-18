@@ -24,14 +24,18 @@
         .then(response => response.json())
         .then(puntos => {
             puntos.forEach(punto => {
-                new google.maps.Marker({
+                const marcador = new google.maps.Marker({
                     position: { lat: punto.lat, lng: punto.lng },
                     map: map,
+                    title: punto.nombre,
                 });
+
+                marcador.addListener("click", () => {
+                    alert(`Seleccionaste: ${punto.nombre}`);
+                });
+
             });
         })
         .catch(error => console.error("Error al cargar los puntos:", error));
-
-        
     }
     
