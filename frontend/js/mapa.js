@@ -13,10 +13,10 @@
     // API Key de Google Maps cargada aquí
     function initMap() {
         // Configuración del mapa, centrado en coordenadas de ejemplo
-        const center = { lat: 20.66682, lng: -103.39182 };
+        const center = { lat: 20.62, lng: -103.35 };
         const map = new google.maps.Map(document.getElementById("map"), {
             center: center,
-            zoom: 12,
+            zoom: 11.5,
         });
 
         // Llamada al backend para obtener los puntos

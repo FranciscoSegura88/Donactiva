@@ -29,8 +29,8 @@ public class MapaController {
             new PuntoMapa(20.6943551031588, -103.34976022226601), // CUGDL
             new PuntoMapa(20.746827343425192, -103.51034773996949), //CUCBA
             new PuntoMapa(20.602974705807025, -103.35312618972037), //CUTlaquepaque
-            new PuntoMapa(20.464746615427355, -103.41312646324454) //CUTlajo
-
+            new PuntoMapa(20.464746615427355, -103.41312646324454), //CUTlajo
+            new PuntoMapa(20.687614233095502, -103.33351927437302) //CUCS
         );
     }
 
