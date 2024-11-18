@@ -10,9 +10,6 @@
             console.error("Error al obtener la clave de la API:", error);
         });
 
-
-        
-
     // API Key de Google Maps cargada aquí
     function initMap() {
         // Configuración del mapa, centrado en coordenadas de ejemplo
