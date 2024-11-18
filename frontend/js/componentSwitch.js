@@ -54,9 +54,6 @@ function loadComponent(componentName) {
                 });
             }
 
-            
-
-
         })
         .catch(error => {
             console.error("Error al cargar el componente:", error);

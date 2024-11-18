@@ -22,10 +22,15 @@ public class MapaController {
     @GetMapping("/elegirPunto")
     public List<PuntoMapa> obtenerPuntos() {
         return Arrays.asList(
-            new PuntoMapa(20.66023887180995, -103.3475682553707),
-            new PuntoMapa(20.696808745450365, -103.37588044587726),
-            new PuntoMapa(20.67611660516869, -103.38690720936174),
-            new PuntoMapa(20.645684156767654, -103.31260262484513)
+            new PuntoMapa("CUT", 20.566867581314288, -103.22858964553858), //CUT
+            new PuntoMapa("CUCEI", 20.6550760553232, -103.32549080732102), //CUCEI
+            new PuntoMapa("CUCEA", 20.740948684177095, -103.38092100320853), //CUCEA
+            new PuntoMapa("CUCSH", 20.74172881630103, -103.37639383204498), //CUCSH
+            new PuntoMapa("CUGDL", 20.6943551031588, -103.34976022226601), // CUGDL
+            new PuntoMapa("CUCBA", 20.746827343425192, -103.51034773996949), //CUCBA
+            new PuntoMapa("CUTlaquepaque", 20.602974705807025, -103.35312618972037), //CUTlaquepaque
+            new PuntoMapa("CUTlajo", 20.464746615427355, -103.41312646324454), //CUTlajo
+            new PuntoMapa("CUCS", 20.687407679934427, -103.3334640801651) //CUCS
         );
     }
 

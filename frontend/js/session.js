@@ -15,6 +15,7 @@ function updateSession(token) {
         // Decodificamos el token (asumimos que es un JWT)
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
         const username = decodedToken.nombre;  // Extraemos el nombre del usuario desde el token
+        const rol = decodedToken.rol;
 
         // Mostramos el saludo con el nombre del usuario
         const sessionGreeting = document.getElementById('sessionGreeting');
@@ -30,6 +31,24 @@ function updateSession(token) {
 
         // Mostrar la sección del usuario
         document.getElementById('userSection').classList.remove('hidden'); // Aseguramos que la sección de usuario sea visible
+
+         // Actualizar el menú desplegable según el rol
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        if (rol === 'ADMIN') {
+            const adminOption = document.createElement('a');
+            adminOption.href = "#"; //PAGINA ADMINISTRACION ADMIN
+            adminOption.className = "block px-4 py-2 text-gray-700 hover:bg-gray-100";
+            adminOption.textContent = "Panel de administración";
+            dropdownMenu.insertBefore(adminOption, dropdownMenu.firstChild);
+        } else if (rol === 'INSTITUCION'){
+            const orgOption = document.createElement('a');
+            orgOption.href = "#"; //PAGINA ADMINISTRACION INSTITUCION
+            orgOption.className = "block px-4 py-2 text-gray-700 hover:bg-gray-100";
+            orgOption.textContent = "Panel de administración";
+            dropdownMenu.insertBefore(orgOption, dropdownMenu.firstChild);
+        }
+
     } catch (error) {
         console.error('Error al decodificar el token:', error);
     }
