@@ -37,10 +37,16 @@ function updateSession(token) {
 
         if (rol === 'ADMIN') {
             const adminOption = document.createElement('a');
-            adminOption.href = "#";
+            adminOption.href = "#"; //PAGINA ADMINISTRACION ADMIN
             adminOption.className = "block px-4 py-2 text-gray-700 hover:bg-gray-100";
             adminOption.textContent = "Panel de administración";
             dropdownMenu.insertBefore(adminOption, dropdownMenu.firstChild);
+        } else if (rol === 'INSTITUCION'){
+            const orgOption = document.createElement('a');
+            orgOption.href = "#"; //PAGINA ADMINISTRACION INSTITUCION
+            orgOption.className = "block px-4 py-2 text-gray-700 hover:bg-gray-100";
+            orgOption.textContent = "Panel de administración";
+            dropdownMenu.insertBefore(orgOption, dropdownMenu.firstChild);
         }
 
     } catch (error) {
