@@ -91,7 +91,29 @@ function assignQuantityButtons() {
     });
 }
 
-// Llama a assignQuantityButtons cuando se cargue el componente
-document.addEventListener('DOMContentLoaded', () => {
-    assignQuantityButtons();
+// Función para guardar las cantidades
+function setItems() {
+    const items = {
+        noPerecederos: parseInt(document.getElementById("no-perecederos").value, 10),
+        higiene: parseInt(document.getElementById("higiene").value, 10),
+        textiles: parseInt(document.getElementById("textiles").value, 10),
+        juguetes: parseInt(document.getElementById("juguetes").value, 10),
+    };
+
+    // Calcular el total de artículos seleccionados
+    const totalItems = Object.values(items).reduce((sum, val) => sum + val, 0);
+
+    // Validar si se han seleccionado artículos
+    if (totalItems === 0) {
+        alert("No has ingresado ningún artículo.");
+    } else {
+        // Guardar los datos en localStorage
+        localStorage.setItem("articulos", JSON.stringify(items));
+    }
+}
+
+// Asignar evento al botón "Elegir ubicación"
+document.addEventListener("DOMContentLoaded", () => {
+    const elegirUbicacionButton = document.getElementById("elegirUbicacion");
+    elegirUbicacionButton.addEventListener("click", setItems); 
 });
