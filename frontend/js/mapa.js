@@ -49,10 +49,17 @@
     function cancelarOperacion(){
         localStorage.removeItem("articulos");
         localStorage.removeItem("ubicacion");
+        alert("Operacion cancelada.");
     }
 
     function confirmarOperacion(){
-        alert("Ya quedo");
+        const ubicacion = JSON.parse(localStorage.getItem("ubicacion"));
+
+        if(!ubicacion){
+            alert("Por favor, selecciona una ubicacion antes de confirmar.");
+        } else {
+            alert("Gracias por su donacion");
+        }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
