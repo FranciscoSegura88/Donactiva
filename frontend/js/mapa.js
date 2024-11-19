@@ -32,6 +32,13 @@
 
                 marcador.addListener("click", () => {
                     alert(`Seleccionaste: ${punto.nombre}`);
+
+                    const ubicacion = {
+                        nombre: punto.nombre, 
+                    };
+                    
+
+                    localStorage.setItem("ubicacion", JSON.stringify(ubicacion));
                 });
 
             });
@@ -39,3 +46,18 @@
         .catch(error => console.error("Error al cargar los puntos:", error));
     }
     
+    function cancelarOperacion(){
+        localStorage.removeItem("articulos");
+        localStorage.removeItem("ubicacion");
+    }
+
+    function confirmarOperacion(){
+        alert("Ya quedo");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const elegirUbicacionButton = document.getElementById("closeModal");
+        const confirmarButton = document.getElementById("confirmArti");
+        elegirUbicacionButton.addEventListener("click", cancelarOperacion);
+        confirmarButton.addEventListener("click", confirmarOperacion);
+    });
