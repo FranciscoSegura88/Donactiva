@@ -27,7 +27,7 @@ public class ArticulosController {
 
     @GetMapping("/getArticulos")
     public Optional<Articulos> obtenerArticulosPorId(@RequestParam int id) {
-       
+
         return articulosService.obtenerArticulosPorId(id);
     }
 
