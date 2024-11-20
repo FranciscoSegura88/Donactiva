@@ -15,7 +15,7 @@ import com.donactiva.proyecto.model.*;
 import com.donactiva.proyecto.model.Donacion.EstadoDonacion;
 
 interface InnerDonacionService {
-    Donacion guardarDonacion(Donacion donacion, int idArticulo, int idLocalizacion, int idUsuario);
+    Donacion guardarDonacion(int idArticulo, int idLocalizacion, int idUsuario);
 
     Donacion marcarComoRecolectada(int id);
 
@@ -45,7 +45,9 @@ public class DonacionService implements InnerDonacionService {
         return donacionRepository.findAllByUsuario_IdUsuarioAndEstado(idUsuario, estadoDonacion);
     }
 
-    public Donacion guardarDonacion(Donacion donacion, int idArticulo, int idLocalizacion, int idUsuario) {
+    public Donacion guardarDonacion(int idArticulo, int idLocalizacion, int idUsuario) {
+
+        Donacion donacion = new Donacion();
 
         Articulos articulo = articulosService.obtenerArticulosPorId(idArticulo)
                 .orElseThrow(() -> new RuntimeException("Artículo no encontrado con id: " + idArticulo));

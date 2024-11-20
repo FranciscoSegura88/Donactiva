@@ -221,12 +221,17 @@
             // Handle form submission for update
             document.getElementById("edit-institution-form").addEventListener("submit", async (e) => {
                 e.preventDefault();
-
-                const formData = new FormData(e.target);
-                const data = Object.fromEntries(formData);
+                
+                const data = {
+                    nombre: name,
+                    domicilio: address,
+                    telefono: telephone,
+                    longitud: longitude,
+                    latitud: latitude
+                };
 
                 // Update institution
-                await fetch(`http://localhost:8080/api/editarLocalizacion/${id}`, {
+                await fetch(`http://localhost:8080/api/modificarLocalizacion/${id}`, {
                     method: "PUT",
                     headers,
                     body: JSON.stringify(data),

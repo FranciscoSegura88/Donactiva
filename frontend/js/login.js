@@ -36,7 +36,7 @@ function handleLogin() {
 
         if(token){
             // Almacenar el token en localStorage
-            localStorage.setItem('authToken', token);
+            localStorage.setItem('authToken', JSON.stringify(token));
         
             // Recargar la página para actualizar la interfaz (esto es una opción alternativa)
             location.reload();
