@@ -37,7 +37,6 @@
                         nombre: punto.nombre, 
                     };
                     
-
                     localStorage.setItem("ubicacion", JSON.stringify(ubicacion));
                 });
 
@@ -53,7 +52,8 @@
     }
 
     function confirmarOperacion(){
-        const ubicacion = JSON.parse(localStorage.getItem("ubicacion"));
+
+        const ubicacion = localStorage.getItem("ubicacion");
 
         if(!ubicacion){
             alert("Por favor, selecciona una ubicacion antes de confirmar.");
