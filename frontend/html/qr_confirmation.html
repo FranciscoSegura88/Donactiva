@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Donacion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center">
+
+    <!-- Header -->
+    <header class="w-full bg-blue-600 text-white py-4 shadow-md">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Mi Perfil</h1>
+            <button id="logoutBtn" class="px-4 py-2 bg-red-500 hover:bg-red-600 rounded text-white">
+                Cerrar sesión
+            </button>
+        </div>
+    </header>
+
+    <!-- Perfil -->
+    <div class="container mx-auto px-6 py-10">
+        <div class="bg-white p-6 rounded shadow-md">
+            <h2 class="text-xl font-bold mb-4">Bienvenido, <span id="username" class="text-blue-600"></span></h2>
+            <p class="text-gray-600"><span id="correo" class="text-blue-600"></span></p>
+        </div>
+
+        <!-- Historial de Donaciones -->
+        <div id="donationsContainer" class="mt-8">
+            <h3 class="text-lg font-semibold mb-4">Tus donaciones</h3>
+            <div id="donationsList" class="grid gap-4">
+                <!-- Las donaciones se cargarán aquí dinámicamente -->
+            </div>
+        </div>
+
+        <!-- Botón para regresar a la página principal -->
+        <div class="mt-8">
+            <a href="/frontend/index.html"
+                class="px-6 py-2 bg-gray-600 text-white rounded-md shadow-md hover:bg-gray-800 transition duration-300 text-center">
+                Regresar a la página principal
+            </a>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+
+        // Obtener el botón y el selector de estado
+        const getDonationsBtn = document.getElementById('getDonationsBtn');
+        const token = localStorage.getItem('authToken');
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+
+        const id = decodedToken.id;
+        const username = decodedToken.nombre;
+        const correo = decodedToken.correo;
+
+        if (!token) {
+            alert('Debes iniciar sesión para ver esta página.');
+            window.location.href = '/frontend/index.html'; // Redirige a la página principal
+        }
+
+        // Configurar los encabezados con el token
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        };
+
+        
+        async function fetchDonaciones() {
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/misDonaciones?idUsuario=${id}`, { headers });
+                
+                if (!response.ok) {
+                    throw new Error('Error al obtener las donaciones.');
+                }
+                const donations = await response.json();
+                const donationsList = document.getElementById('donationsList');
+
+                // Mostrar el nombre del usuario
+                document.getElementById('username').textContent = username;
+                document.getElementById('correo').textContent = correo;
+
+                
+
+                if (donations.length === 0) {
+                    donationsList.innerHTML = '<p class="text-gray-500">No has realizado ninguna donación aún.</p>';
+                } else {
+                    donations.forEach(donation => {
+                        const donationItem = document.createElement('div');
+                        donationItem.className = 'bg-white p-4 rounded shadow-md';
+                        donationItem.innerHTML = `
+                            <p><strong>Estado:</strong> ${donation.estado}</p>
+                            <p><strong>Localización:</strong> ${donation.localizacion.nombre}</p>
+                            <p><strong>Puntos Generados:</strong> ${donation.puntos}</p>
+                        `;
+                        donationsList.appendChild(donationItem);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching institutions:', error);
+                alert('Error al cargar las instituciones. Verifica que el servidor esté corriendo y la URL sea correcta.');
+            }
+        }
+
+        fetchDonaciones();
+
+
+        // Cerrar sesión
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('authToken'); // Eliminar el token
+            window.location.href = '/frontend/index.html'; // Redirigir a la página principal
+        });
+    </script>
+</body>
+
+</html>
