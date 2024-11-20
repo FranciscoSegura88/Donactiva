@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -28,15 +32,20 @@ public class DonacionController {
     private DonacionService donacionService;
 
     @GetMapping("/misDonaciones")
-    public ResponseEntity<Iterable<Donacion>> obtenerDonaciones(
-            @RequestParam int idUsuario,
-            @RequestParam EstadoDonacion estadoDonacion) {
+    public ResponseEntity<?> obtenerDonaciones(
+        @RequestParam int idUsuario,
+        @RequestParam EstadoDonacion estadoDonacion) {
 
-        Iterable<Donacion> donacion;
-        donacion = donacionService.obtenerDonacionesPorEstado(idUsuario, estadoDonacion);
+    Iterable<Donacion> donaciones = donacionService.obtenerDonacionesPorEstado(idUsuario, estadoDonacion);
 
-        return ResponseEntity.ok(donacion);
+    if (!donaciones.iterator().hasNext()) {
+        Map<String, String> mensaje = new HashMap<>();
+        mensaje.put("Oh!", "No hay donaciones en estado: " + estadoDonacion.toString()+"");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
     }
+
+    return ResponseEntity.ok(donaciones);
+}
 
     @PostMapping("/confirmarDonacion")
     public ResponseEntity<Donacion> crearDonacion(@RequestBody Donacion donacion,

@@ -19,8 +19,6 @@ interface InnerDonacionService {
 
     Donacion marcarComoRecolectada(int id);
 
-    Iterable<Donacion> obtenerTodasDonaciones(int idUsuario);
-
     Iterable<Donacion> obtenerDonacionesPorEstado(int idUsuario, EstadoDonacion estado);
 
 }
@@ -42,10 +40,6 @@ public class DonacionService implements InnerDonacionService {
 
     @Autowired
     private PuntosService puntosService;
-
-    public Iterable<Donacion> obtenerTodasDonaciones(int idUsuario) {
-        return donacionRepository.findAllByUsuario_IdUsuario(idUsuario);
-    }
 
     public Iterable<Donacion> obtenerDonacionesPorEstado(int idUsuario, EstadoDonacion estadoDonacion) {
         return donacionRepository.findAllByUsuario_IdUsuarioAndEstado(idUsuario, estadoDonacion);
@@ -90,11 +84,14 @@ public class DonacionService implements InnerDonacionService {
             donacion.setFechaRecolectada(fechaRecolectada);
             donacion.setEstado(EstadoDonacion.RECOLECTADA);
             
-            Puntos puntos = puntosService.guardarPuntos(usuario, donacion, articulo);
+            Puntos puntosP = puntosService.guardarPuntos(usuario, donacion, articulo);
+            int puntos = puntosP.getCantidad();
+            
+            
             donacion.setPuntos(puntos);
 
             boolean operacion = true;
-            usuarioService.actualizarPuntos(usuario, puntos.getCantidad(), operacion);
+            usuarioService.actualizarPuntos(usuario, puntos, operacion);
 
             return donacionRepository.save(donacion);
         } else {

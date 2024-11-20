@@ -59,8 +59,7 @@ public class Donacion {
     @Enumerated(EnumType.STRING)
     private EstadoDonacion estado = EstadoDonacion.PENDIENTE;
 
-    @ManyToOne
-    @JoinColumn(name = "cantidad", nullable = true, updatable = false)
-    private Puntos puntos;
+    @Column(name = "puntos")
+    private int puntos;
     
 }
