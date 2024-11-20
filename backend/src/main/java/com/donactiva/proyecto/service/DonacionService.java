@@ -82,20 +82,19 @@ public class DonacionService implements InnerDonacionService {
 
     public Donacion marcarComoRecolectada(int idDonacion) {
         Donacion donacion = donacionRepository.findByIdDonacion(idDonacion);
-        if (donacion != null) {
+        if (donacion != null && donacion.getEstado() == EstadoDonacion.PENDIENTE) {
             LocalDateTime fechaRecolectada = LocalDateTime.now();
             Articulos articulo = donacion.getArticulo();
             Usuarios usuario = donacion.getUsuario();
 
             donacion.setFechaRecolectada(fechaRecolectada);
             donacion.setEstado(EstadoDonacion.RECOLECTADA);
+            
             Puntos puntos = puntosService.guardarPuntos(usuario, donacion, articulo);
-
-            int cantidadPuntos = puntos.getCantidad();
-            donacion.setPuntos(cantidadPuntos);
+            donacion.setPuntos(puntos);
 
             boolean operacion = true;
-            usuarioService.actualizarPuntos(usuario, cantidadPuntos, operacion);
+            usuarioService.actualizarPuntos(usuario, puntos.getCantidad(), operacion);
 
             return donacionRepository.save(donacion);
         } else {

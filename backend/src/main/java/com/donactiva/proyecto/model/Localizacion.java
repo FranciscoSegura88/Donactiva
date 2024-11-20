@@ -29,11 +29,9 @@ public class Localizacion {
     @NonNull
     private String telefono;
 
-    Localizacion(String nombre, String domicilio, String telefono){
+    @NonNull
+    private double longitud;
 
-        this.nombre = nombre;
-        this.domicilio = domicilio;
-        this.telefono = telefono;
-
-    }
+    @NonNull
+    private double latitud;
 }

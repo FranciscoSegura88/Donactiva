@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.donactiva.proyecto.model.Localizacion;
 import com.donactiva.proyecto.service.LocalizacionService;
 
+import jakarta.persistence.EntityNotFoundException;
+
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
@@ -20,7 +26,7 @@ public class LocalizacionController {
     @Autowired
     private LocalizacionService localizacionService;
 
-    @GetMapping
+    @GetMapping("/obtenerLocalizaciones")
     public ResponseEntity<Iterable<Localizacion>> obtenerLocalizaciones() {
         
         Iterable<Localizacion> localizaciones = localizacionService.obtenerTodasLocalizaciones();
@@ -34,4 +40,16 @@ public class LocalizacionController {
         return ResponseEntity.ok(localizacion);
 
     }
+
+    @PutMapping("modificarLocalizacion/{idLocalizacion}")
+    public ResponseEntity<Localizacion> modificarLocalizacion(@PathVariable int idLocalizacion, @RequestBody Localizacion localizacion) {
+        try{
+            localizacionService.modificarLocalizacion(idLocalizacion, localizacion);
+            return ResponseEntity.ok(localizacion);
+        }catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+        
+    }
+        
 }

@@ -7,5 +7,5 @@ import com.donactiva.proyecto.model.Localizacion;
 
 @Repository
 public interface LocalizacionRepository extends CrudRepository<Localizacion, Integer>{
-
+    Localizacion findByIdLocalizacion(int idLocalizacion);
 }
