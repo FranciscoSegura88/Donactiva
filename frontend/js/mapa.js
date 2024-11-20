@@ -58,6 +58,14 @@
         if(!ubicacion){
             alert("Por favor, selecciona una ubicacion antes de confirmar.");
         } else {
+
+            //TODO: Guardar los articulos en la base de datos
+
+
+            /*TODO: Una vez guardada obtener la id de los articulos para mandarlo a la donacion,
+            donacion(id_usuario, id_ubicacion, )  tomada desde el token, al igual que la id de localizacion
+            */
+
             alert("Gracias por su donacion");
         }
     }
