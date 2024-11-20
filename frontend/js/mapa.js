@@ -28,13 +28,14 @@
                     position: { lat: punto.longitud, lng: punto.latitud },
                     map: map,
                     title: punto.nombre,
+                    id: punto.idLocalizacion,
                 });
 
                 marcador.addListener("click", () => {
-                    alert(`Seleccionaste: ${punto.nombre}`);
+                    alert(`Seleccionaste: ${punto.nombre} , ${punto.idLocalizacion}`);
 
                     const ubicacion = {
-                        nombre: punto.nombre, 
+                        id: punto.idLocalizacion, 
                     };
                     
                     localStorage.setItem("ubicacion", JSON.stringify(ubicacion));
@@ -51,24 +52,94 @@
         alert("Operacion cancelada.");
     }
 
-    function confirmarOperacion(){
+    async function confirmarOperacion() {
+        const token = localStorage.getItem("authToken");
+    
+        let id_usuario;
 
+        try {
+
+        } catch (error) {
+            console.error("Error al decodificar el token:", error);
+            alert("El token de autenticación es inválido. Por favor, inicia sesión nuevamente.");
+            return;
+        }
+    
+        const articulos = localStorage.getItem("articulos");
         const ubicacion = localStorage.getItem("ubicacion");
+    
+        // Validar que existan artículos y una ubicación seleccionada
+        if (!articulos || articulos.length === 0) {
+            alert("Por favor, selecciona al menos un artículo antes de confirmar.");
+            return;
+        }
+    
+        if (!ubicacion) {
+            alert("Por favor, selecciona una ubicación antes de confirmar.");
+            return;
+        }
+    
+        try {
+            // Guardar los artículos
+            const responseArticulos = await fetch("http://localhost:8080/api/guardarArticulos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // Token para autenticación
+                },
+                body: articulos,
+            });
+    
+            if (!responseArticulos.ok) {
+                const errorData = await responseArticulos.json();
+                console.error("Error al guardar los artículos:", errorData);
+                alert("Hubo un error al guardar los artículos. Intenta nuevamente.");
+                return;
+            }
+    
+            // Obtener la respuesta del backend y extraer el ID del artículo
+            const articuloGuardado = await responseArticulos.json();
+            const idArticulo = JSON.stringify(articuloGuardado.idArticulo);
+            console.log("Artículo guardado con ID:", idArticulo);
+    
+            // Guardar la donación
+            const donacionData = {
+                idUsuario: id_usuario,
+                idArticulo: idArticulo,
+                ubicacion: ubicacion.nombre,
+            };
 
-        if(!ubicacion){
-            alert("Por favor, selecciona una ubicacion antes de confirmar.");
-        } else {
-
-            //TODO: Guardar los articulos en la base de datos
-
-
-            /*TODO: Una vez guardada obtener la id de los articulos para mandarlo a la donacion,
-            donacion(id_usuario, id_ubicacion, )  tomada desde el token, al igual que la id de localizacion
-            */
-
-            alert("Gracias por su donacion");
+            const responseDonacion = await fetch("http://localhost:8080/api/confirmarDonacion", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: donacionData,
+            });
+    
+            if (!responseDonacion.ok) {
+                const errorData = await responseDonacion.json();
+                console.error("Error al guardar la donación:", errorData);
+                alert("Hubo un error al guardar la donación. Intenta nuevamente.");
+                return;
+            }
+    
+            const donacionGuardada = await responseDonacion.json();
+            console.log("Donación guardada con éxito:", donacionGuardada);
+    
+            alert("Gracias por tu donación. Ha sido registrada correctamente.");
+    
+            // Limpiar el localStorage
+            localStorage.removeItem("articulos");
+            localStorage.removeItem("ubicacion");
+            localStorage.removeItem("idArticuloGuardado");
+        } catch (error) {
+            console.error("Error en la operación:", error);
+            alert("Hubo un error en la operación. Por favor, intenta nuevamente.");
         }
     }
+    
 
     document.addEventListener("DOMContentLoaded", () => {
         const elegirUbicacionButton = document.getElementById("closeModal");

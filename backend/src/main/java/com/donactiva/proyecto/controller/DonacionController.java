@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -48,12 +47,12 @@ public class DonacionController {
 }
 
     @PostMapping("/confirmarDonacion")
-    public ResponseEntity<Donacion> crearDonacion(@RequestBody Donacion donacion,
+    public ResponseEntity<Donacion> crearDonacion(
             @RequestParam int idArticulo,
             @RequestParam int idLocalizacion,
             @RequestParam int idUsuario) {
         
-            Donacion nuevaDonacion = donacionService.guardarDonacion(donacion, idArticulo, idLocalizacion, idUsuario);
+            Donacion nuevaDonacion = donacionService.guardarDonacion(idArticulo, idLocalizacion, idUsuario);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaDonacion);
     }

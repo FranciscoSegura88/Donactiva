@@ -21,7 +21,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
@@ -32,31 +31,32 @@ public class LocalizacionController {
 
     @GetMapping("/obtenerLocalizaciones")
     public ResponseEntity<Iterable<Localizacion>> obtenerLocalizaciones() {
-        
+
         Iterable<Localizacion> localizaciones = localizacionService.obtenerTodasLocalizaciones();
         return ResponseEntity.ok(localizaciones);
     }
 
     @PostMapping("/guardarLocalizacion")
     public ResponseEntity<Localizacion> guardarLocalizacion(@RequestBody Localizacion localizacion) {
-        
+
         localizacionService.guardarLocalizacion(localizacion);
         return ResponseEntity.ok(localizacion);
 
     }
 
-    @PutMapping("modificarLocalizacion/{idLocalizacion}")
+    @PutMapping("/modificarLocalizacion/{idLocalizacion}")
     public ResponseEntity<?> modificarLocalizacion(
-        @PathVariable int idLocalizacion,
-        @RequestBody Localizacion localizacion) {
-    try {
-        Localizacion localizacionModificada = localizacionService.modificarLocalizacion(idLocalizacion, localizacion);
-        return ResponseEntity.ok(localizacionModificada);
-    } catch (EntityNotFoundException e) {
-        Map<String, String> mensaje = new HashMap<>();
-        mensaje.put("error", e.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
+            @PathVariable int idLocalizacion,
+            @RequestBody Localizacion localizacion) {
+        try {
+            Localizacion localizacionModificada = localizacionService.modificarLocalizacion(idLocalizacion,
+                    localizacion);
+            return ResponseEntity.ok(localizacionModificada);
+        } catch (EntityNotFoundException e) {
+            Map<String, String> mensaje = new HashMap<>();
+            mensaje.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
+        }
     }
-}
-        
+
 }
