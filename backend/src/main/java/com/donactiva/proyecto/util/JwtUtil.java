@@ -40,7 +40,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(correo)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 15)) //Expira en 15 minutos el token
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) //Expira en 60 minutos el token
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }

@@ -3,10 +3,12 @@ package com.donactiva.proyecto.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.donactiva.proyecto.service.GoogleMapsService;
 
 @CrossOrigin(origins = "*")
+@RequestMapping("/api")
 @RestController
 public class MapaController {
 
