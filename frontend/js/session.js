@@ -65,5 +65,7 @@ document.getElementById('dropdownBtn').addEventListener('click', () => {
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
     localStorage.removeItem('authToken'); // Eliminar el token
+    localStorage.removeItem('articulos');
+    localStorage.removeItem('ubicacion');
     location.reload(); // Recargar para volver a la vista de login/registro
 });
