@@ -59,7 +59,11 @@ public class SecurityConfig implements WebMvcConfigurer {
     }
 
     // Bean para manejo de errores
-    @SuppressWarnings("unused")
+    
+    
+    /*@SuppressWarnings("unused")
+    
+    
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return (request, response, authException) -> {
@@ -68,4 +72,5 @@ public class SecurityConfig implements WebMvcConfigurer {
             response.getOutputStream().println("{ \"error\": \"Unauthorized or invalid token\" }");
         };
     }
+         */
 }

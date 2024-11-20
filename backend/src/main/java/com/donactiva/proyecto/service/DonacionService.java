@@ -19,7 +19,7 @@ interface InnerDonacionService {
 
     Donacion marcarComoRecolectada(int id);
 
-    Iterable<Donacion> obtenerDonacionesPorEstado(int idUsuario, EstadoDonacion estado);
+    Iterable<Donacion> obtenerDonaciones(int idUsuario);
 
 }
 
@@ -41,8 +41,8 @@ public class DonacionService implements InnerDonacionService {
     @Autowired
     private PuntosService puntosService;
 
-    public Iterable<Donacion> obtenerDonacionesPorEstado(int idUsuario, EstadoDonacion estadoDonacion) {
-        return donacionRepository.findAllByUsuario_IdUsuarioAndEstado(idUsuario, estadoDonacion);
+    public Iterable<Donacion> obtenerDonaciones(int idUsuario) {
+        return donacionRepository.findAllByUsuario_IdUsuario(idUsuario);
     }
 
     public Donacion guardarDonacion(Donacion donacion, int idArticulo, int idLocalizacion, int idUsuario) {
