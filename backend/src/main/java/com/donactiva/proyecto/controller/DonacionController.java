@@ -51,7 +51,6 @@ public class DonacionController {
 
     @PutMapping("/recolectada/{idDonacion}")
     public ResponseEntity<Donacion> marcarComoRecolectadaEntity(@PathVariable int idDonacion) {
-        
         try {
             Donacion donacion = donacionService.marcarComoRecolectada(idDonacion);
             return ResponseEntity.ok(donacion);

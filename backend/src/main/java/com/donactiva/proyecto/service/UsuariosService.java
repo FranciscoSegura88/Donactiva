@@ -42,14 +42,16 @@ public class UsuariosService implements UsuarioService {
     public void actualizarPuntos(Usuarios usuario, int cantidadPuntos, boolean operacion) {
         int puntosGanados = usuario.getPuntosGanados();
         int puntosUsados = usuario.getPuntosUsados();
+        int puntosDisponibles;
         if (operacion == true) {
-            puntosGanados += cantidadPuntos;
+            puntosGanados = puntosGanados + cantidadPuntos;
             usuario.setPuntosGanados(puntosGanados);
         } else {
             puntosUsados += cantidadPuntos;
             usuario.setPuntosUsados(puntosUsados);
         }
-        usuario.setPuntosDisponibles(puntosGanados - puntosUsados);
+        puntosDisponibles = puntosGanados - puntosUsados;
+        usuario.setPuntosDisponibles(puntosDisponibles);
         guardarUsuario(usuario);
     }
 
