@@ -1,62 +1,78 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escanear Código QR</title>
-    <style>
-        *{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;}
-        #qr-reader { width: 25%; height: 50%; }
-        #qr-result { margin-top: 1%; font-size: 20px; }
-    </style>
-</head>
-<body>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="libs/html5-qrcode.min.js"></script>
-    <h2>Escanea el Código QR</h2>
-    
-    <!-- Div donde se mostrará la cámara para escanear el código QR -->
-    <div id="qr-reader"></div>
-    
-    <!-- Resultado donde se mostrará el texto extraído del código QR -->
-    <div id="qr-result">
-        <p><strong>Información del QR:</strong></p>
-        <p id="qr-text">Esperando escanear...</p>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center">
+
+    <!-- Header -->
+    <header class="w-full bg-blue-600 text-white py-4 shadow-md">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Escanear Código QR</h1>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="container mx-auto px-6 py-10">
+        <div class="bg-white p-6 rounded shadow-md text-center">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Escanea el Código QR</h2>
+            <p class="text-gray-600 mb-6">Apunta la cámara al código QR para obtener la información.</p>
+            
+            <!-- Lector QR -->
+            <div id="qr-reader" class="mx-auto w-full max-w-sm aspect-square border-2 border-gray-300 rounded"></div>
+
+            <!-- Resultado del escaneo -->
+            <div id="qr-result" class="mt-6">
+                <p class="text-gray-700 text-lg"><strong>Información del QR:</strong></p>
+                <p id="qr-text" class="text-blue-600 text-lg font-semibold">Esperando escanear...</p>
+            </div>
+        </div>
+
+        <!-- Botón para regresar -->
+        <div class="mt-8 text-center">
+            <a href="/frontend/index.html" 
+               class="px-6 py-2 bg-gray-600 text-white rounded-md shadow-md hover:bg-gray-800 transition duration-300 inline-block">
+                Regresar
+            </a>
+        </div>
     </div>
 
-    <a href="/frontend/index.html" class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 
-    transition duration-300 w-5/6 text-center block">Regresar</a>
-
+    <!-- Script -->
     <script>
-        // Función para iniciar la lectura del código QR
+        // Función para manejar el éxito del escaneo
         function onScanSuccess(decodedText, decodedResult) {
-            // Mostramos el resultado en el HTML
+            // Mostrar el resultado en el HTML
             document.getElementById("qr-text").innerText = "Información escaneada: " + decodedText;
             
-            // Detenemos la lectura del QR después de un escaneo exitoso
+            // Detener el escáner después del éxito
             html5QrcodeScanner.stop();
         }
 
-        // Función para manejar los errores de lectura del QR
+        // Función para manejar errores de escaneo
         function onScanError(errorMessage) {
-            // Puedes mostrar el error si deseas manejar errores
-            console.log("Error de escaneo: " + errorMessage);
+            console.error("Error de escaneo:", errorMessage);
         }
 
-        // Configurando el lector de QR
+        // Configurar el lector de QR
         const html5QrcodeScanner = new Html5QrcodeScanner(
-            "qr-reader", // El ID del div donde mostrar la cámara
+            "qr-reader", // ID del div donde mostrar la cámara
             {
-                fps: 60, // Frames por segundo de la cámara
-                qrbox: 100, // El tamaño del área de escaneo (ajústalo a tu gusto)
+                fps: 10, // Frames por segundo
+                qrbox: 250, // Tamaño del área de escaneo
             },
-            false // No usar un botón para comenzar
+            false // No mostrar botón para iniciar
         );
 
-        // Iniciamos la cámara para escanear el código QR
+        // Iniciar la cámara para escanear el código QR
         html5QrcodeScanner.render(onScanSuccess, onScanError);
     </script>
 
 </body>
+
 </html>

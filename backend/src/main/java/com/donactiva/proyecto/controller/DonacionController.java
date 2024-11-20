@@ -20,7 +20,6 @@ import jakarta.persistence.EntityNotFoundException;
 
 import com.donactiva.proyecto.service.DonacionService;
 import com.donactiva.proyecto.model.Donacion;
-import com.donactiva.proyecto.model.Donacion.EstadoDonacion;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -32,14 +31,13 @@ public class DonacionController {
 
     @GetMapping("/misDonaciones")
     public ResponseEntity<?> obtenerDonaciones(
-        @RequestParam int idUsuario,
-        @RequestParam EstadoDonacion estadoDonacion) {
+        @RequestParam int idUsuario) {
 
-    Iterable<Donacion> donaciones = donacionService.obtenerDonacionesPorEstado(idUsuario, estadoDonacion);
+    Iterable<Donacion> donaciones = donacionService.obtenerDonaciones(idUsuario);
 
     if (!donaciones.iterator().hasNext()) {
         Map<String, String> mensaje = new HashMap<>();
-        mensaje.put("Oh!", "No hay donaciones en estado: " + estadoDonacion.toString()+"");
+        mensaje.put("Ups!", "No hay donaciones todavia");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
     }
 
