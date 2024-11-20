@@ -22,21 +22,29 @@ function handleLogin() {
             const backdrop = document.getElementById('modalBackdrop');
             closeModal(modal, backdrop);  // Cerrar el modal
 
-            return response.text(); // Retorna el token en texto
+            return response.json(); // Retorna el token en texto
         } else {
-            return response.text().then(errorData => {
+            return response.json().then(errorData => {
                 // Manejar error con detalle proporcionado por el servidor
                 throw new Error(errorData.message || 'Error al iniciar sesión');
             });
         }
     })
-    .then(token => {
-        // Almacenar el token en localStorage
-        localStorage.setItem('authToken', token);
+    .then(data => {
 
-        // Recargar la página para actualizar la interfaz (esto es una opción alternativa)
-        location.reload();
+        const token = data.token;
 
+        if(token){
+            // Almacenar el token en localStorage
+            localStorage.setItem('authToken', token);
+        
+            // Recargar la página para actualizar la interfaz (esto es una opción alternativa)
+            location.reload();
+        } else {
+
+            throw new Error('Token no encontrado en la respuesta del servidor');
+
+        }
     })
     .catch(error => {
         console.error('Error al iniciar sesión:', error);

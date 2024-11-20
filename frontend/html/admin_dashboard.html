@@ -20,7 +20,7 @@
                     transition duration-300 w-5/6 text-center block" href="/frontend/index.html">Página principal</a>
 
                 <button id="logoutBtn" class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md 
-                    hover:bg-blue-800 transition duration-300 w-5/6 text-center">Cerrar sesion</button>
+                    hover:bg-blue-800 transition duration-300 w-5/6 text-center">Cerrar sesión</button>
             </div>
         </header>
 
@@ -78,18 +78,75 @@
         </main>
     </div>
 
-    <script>
-        const API_URL = "http://localhost:8080/instituciones"; // Cambia esta URL si es necesario
+    <!-- Modal de Edición -->
+    <div id="editModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold mb-4">Editar Institución</h3>
+            <form id="edit-institution-form" class="space-y-4">
+                <div>
+                    <label for="edit-name" class="block text-sm font-medium text-gray-700">Nombre</label>
+                    <input type="text" id="edit-name" name="name" class="w-full border border-gray-300 rounded px-3 py-2" required />
+                </div>
 
+                <div>
+                    <label for="edit-address" class="block text-sm font-medium text-gray-700">Domicilio</label>
+                    <input type="text" id="edit-address" name="address" class="w-full border border-gray-300 rounded px-3 py-2" required />
+                </div>
+
+                <div>
+                    <label for="edit-telephone" class="block text-sm font-medium text-gray-700">Teléfono</label>
+                    <input type="text" id="edit-telephone" name="telephone" class="w-full border border-gray-300 rounded px-3 py-2" required />
+                </div>
+
+                <div>
+                    <label for="edit-longitude" class="block text-sm font-medium text-gray-700">Longitud</label>
+                    <input type="number" id="edit-longitude" name="longitude" class="w-full border border-gray-300 rounded px-3 py-2" step="any" required />
+                </div>
+
+                <div>
+                    <label for="edit-latitude" class="block text-sm font-medium text-gray-700">Latitud</label>
+                    <input type="number" id="edit-latitude" name="latitude" class="w-full border border-gray-300 rounded px-3 py-2" step="any" required />
+                </div>
+
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Actualizar</button>
+                <button type="button" id="cancelEdit" class="ml-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
         const institutionsContainer = document.getElementById("institutions-container");
         const addInstitutionForm = document.getElementById("add-institution-form");
+        const editModal = document.getElementById("editModal");
+        const cancelEditBtn = document.getElementById("cancelEdit");
+        const token = localStorage.getItem('authToken');
+
+        // Verificar si el token existe antes de hacer las solicitudes
+        if (!token) {
+            alert('No has iniciado sesión. Redirigiendo a la página principal.');
+            window.location.href = '/frontend/index.html'; // Redirigir a la página principal
+        }
+
+        // Configurar los encabezados con el token
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        };
 
         // Fetch institutions and render them
         async function fetchInstitutions() {
-            const response = await fetch(API_URL);
-            const institutions = await response.json();
-            institutionsContainer.innerHTML = "";
-            institutions.forEach(renderInstitution);
+            try {
+                const response = await fetch('http://localhost:8080/api/obtenerLocalizaciones', { headers });
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`);
+                }
+                const institutions = await response.json();
+                institutionsContainer.innerHTML = "";
+                institutions.forEach(renderInstitution);
+            } catch (error) {
+                console.error('Error fetching institutions:', error);
+                alert('Error al cargar las instituciones. Verifica que el servidor esté corriendo y la URL sea correcta.');
+            }
         }
 
         // Render a single institution
@@ -99,14 +156,14 @@
 
             div.innerHTML = `
             <div>
-            <h3 class="text-lg font-semibold">${institution.name}</h3>
-            <p class="text-sm text-gray-600">Longitud: ${institution.longitude}</p>
-            <p class="text-sm text-gray-600">Latitud: ${institution.latitude}</p>
+            <h3 class="text-lg font-semibold">${institution.nombre}</h3>
+            <p class="text-sm text-gray-600">Longitud: ${institution.longitud}</p>
+            <p class="text-sm text-gray-600">Latitud: ${institution.latitud}</p>
             </div>
             <div class="space-x-2">
             <button
                 class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
-                onclick="editInstitution(${institution.id}, '${institution.name}', ${institution.longitude}, ${institution.latitude})"
+                onclick="editInstitution(${institution.idLocalizacion}, '${institution.nombre}', '${institution.domicilio}', '${institution.telefono}', ${institution.longitud}, ${institution.latitud})"
             >
                 Editar
             </button>
@@ -125,12 +182,24 @@
         // Add new institution
         addInstitutionForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const formData = new FormData(addInstitutionForm);
-            const data = Object.fromEntries(formData);
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const telephone = document.getElementById('telephone').value;
+            const longitude= document.getElementById('longitude').value;
+            const latitude = document.getElementById('latitude').value;
 
-            await fetch(API_URL, {
+            const data = {
+                nombre: name,
+                domicilio: address,
+                telefono: telephone,
+                longitud: longitude,
+                latitud: latitude
+            };
+
+
+            await fetch('http://localhost:8080/api/guardarLocalizacion', {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers,
                 body: JSON.stringify(data),
             });
 
@@ -138,39 +207,50 @@
             fetchInstitutions();
         });
 
-        // Edit institution
-        async function editInstitution(id, name, longitude, latitude) {
-            const newName = prompt("Nuevo nombre:", name);
-            const newLongitude = prompt("Nueva longitud:", longitude);
-            const newLatitude = prompt("Nueva latitud:", latitude);
+        // Edit institution (opens the edit modal with existing data)
+        async function editInstitution(id, name, address, telephone, longitude, latitude) {
+            document.getElementById("edit-name").value = name;
+            document.getElementById("edit-address").value = address;
+            document.getElementById("edit-telephone").value = telephone;
+            document.getElementById("edit-longitude").value = longitude;
+            document.getElementById("edit-latitude").value = latitude;
 
-            if (newName && newLongitude && newLatitude) {
-                await fetch(`${API_URL}/${id}`, {
+            // Show modal
+            editModal.classList.remove("hidden");
+
+            // Handle form submission for update
+            document.getElementById("edit-institution-form").addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData);
+
+                // Update institution
+                await fetch(`http://localhost:8080/api/editarLocalizacion/${id}`, {
                     method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name: newName, longitude: newLongitude, latitude: newLatitude }),
+                    headers,
+                    body: JSON.stringify(data),
                 });
-                fetchInstitutions();
-            }
-        }
 
-        // Delete institution
-        async function deleteInstitution(id) {
-            if (confirm("¿Estás seguro de que quieres eliminar esta institución?")) {
-                await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+                // Hide modal and refresh institutions
+                editModal.classList.add("hidden");
                 fetchInstitutions();
-            }
-        }
+            });
 
-        // Initialize the dashboard
-        fetchInstitutions();
+            // Cancel edit
+            cancelEditBtn.addEventListener("click", () => {
+                editModal.classList.add("hidden");
+            });
+        }
 
         document.getElementById('logoutBtn').addEventListener('click', () => {
             localStorage.removeItem('authToken'); // Eliminar el token
             localStorage.removeItem('articulos');
             localStorage.removeItem('ubicacion');
-            window.location.href = '/frontend/index.html'; // Redirigir a la página principal
+            location.reload(); // Recargar para volver a la vista de login/registro
         });
+
+        fetchInstitutions();
     </script>
 </body>
 

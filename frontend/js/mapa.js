@@ -1,4 +1,4 @@
-    fetch("http://localhost:8080/google-maps-api-key")
+    fetch("http://localhost:8080/api/google-maps-api-key")
         .then(response => response.text()) // Obtener la clave como texto
         .then(apiKey => {
             const script = document.createElement("script");
@@ -20,12 +20,12 @@
         });
 
         // Llamada al backend para obtener los puntos
-    fetch("http://localhost:8080/elegirPunto")
+    fetch("http://localhost:8080/api/obtenerLocalizaciones")
         .then(response => response.json())
         .then(puntos => {
             puntos.forEach(punto => {
                 const marcador = new google.maps.Marker({
-                    position: { lat: punto.lat, lng: punto.lng },
+                    position: { lat: punto.longitud, lng: punto.latitud },
                     map: map,
                     title: punto.nombre,
                 });
