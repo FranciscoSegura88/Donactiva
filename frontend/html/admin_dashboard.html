@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Instituciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <header class="flex justify-between items-center p-4 bg-white shadow-md">
+            <div class="text-xl font-bold text-blue-600">
+                <img src="../img/logo-nombre.png" alt="Logo" class="w-1/2">
+            </div>
+            <div id="authSection" class="flex flex-col items-end space-y-4 w-48">
+                <!-- Botones de login y registro -->
+                <a class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-800 
+                    transition duration-300 w-5/6 text-center block" href="/frontend/index.html">Página principal</a>
+
+                <button id="logoutBtn" class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md 
+                    hover:bg-blue-800 transition duration-300 w-5/6 text-center">Cerrar sesion</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8 flex-grow">
+            <!-- Add Institution Form -->
+            <section class="bg-white shadow-md rounded p-6 mb-8">
+                <h2 class="text-lg font-bold mb-4">Agregar nueva institución</h2>
+                <form id="add-institution-form" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+                        <input type="text" id="name" name="name" class="w-full border border-gray-300 rounded px-3 py-2"
+                            placeholder="Nombre de la institución" required />
+                    </div>
+
+                    <div>
+                        <label for="address" class="block text-sm font-medium text-gray-700">Domicilio</label>
+                        <input type="text" id="address" name="address"
+                            class="w-full border border-gray-300 rounded px-3 py-2"
+                            placeholder="Domicilio de la institucion" required />
+                    </div>
+
+                    <div>
+                        <label for="telephone" class="block text-sm font-medium text-gray-700">Telefono</label>
+                        <input type="number" id="telephone" name="telephone"
+                            class="w-full border border-gray-300 rounded px-3 py-2"
+                            placeholder="Nombre de la institución" required />
+                    </div>
+
+                    <div>
+                        <label for="longitude" class="block text-sm font-medium text-gray-700">Longitud</label>
+                        <input type="number" id="longitude" name="longitude"
+                            class="w-full border border-gray-300 rounded px-3 py-2" placeholder="Longitud" step="any"
+                            required />
+                    </div>
+                    <div>
+                        <label for="latitude" class="block text-sm font-medium text-gray-700">Latitud</label>
+                        <input type="number" id="latitude" name="latitude"
+                            class="w-full border border-gray-300 rounded px-3 py-2" placeholder="Latitud" step="any"
+                            required />
+                    </div>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        Agregar Institución
+                    </button>
+                </form>
+            </section>
+
+            <!-- Institutions List -->
+            <section class="bg-white shadow-md rounded p-6">
+                <h2 class="text-lg font-bold mb-4">Instituciones</h2>
+                <div id="institutions-container" class="space-y-4">
+                    <!-- Aquí se renderizarán las instituciones -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const API_URL = "http://localhost:8080/instituciones"; // Cambia esta URL si es necesario
+
+        const institutionsContainer = document.getElementById("institutions-container");
+        const addInstitutionForm = document.getElementById("add-institution-form");
+
+        // Fetch institutions and render them
+        async function fetchInstitutions() {
+            const response = await fetch(API_URL);
+            const institutions = await response.json();
+            institutionsContainer.innerHTML = "";
+            institutions.forEach(renderInstitution);
+        }
+
+        // Render a single institution
+        function renderInstitution(institution) {
+            const div = document.createElement("div");
+            div.className = "flex justify-between items-center p-4 border rounded";
+
+            div.innerHTML = `
+            <div>
+            <h3 class="text-lg font-semibold">${institution.name}</h3>
+            <p class="text-sm text-gray-600">Longitud: ${institution.longitude}</p>
+            <p class="text-sm text-gray-600">Latitud: ${institution.latitude}</p>
+            </div>
+            <div class="space-x-2">
+            <button
+                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
+                onclick="editInstitution(${institution.id}, '${institution.name}', ${institution.longitude}, ${institution.latitude})"
+            >
+                Editar
+            </button>
+            <button
+                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+                onclick="deleteInstitution(${institution.id})"
+            >
+                Eliminar
+            </button>
+            </div>
+        `;
+
+            institutionsContainer.appendChild(div);
+        }
+
+        // Add new institution
+        addInstitutionForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(addInstitutionForm);
+            const data = Object.fromEntries(formData);
+
+            await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            addInstitutionForm.reset();
+            fetchInstitutions();
+        });
+
+        // Edit institution
+        async function editInstitution(id, name, longitude, latitude) {
+            const newName = prompt("Nuevo nombre:", name);
+            const newLongitude = prompt("Nueva longitud:", longitude);
+            const newLatitude = prompt("Nueva latitud:", latitude);
+
+            if (newName && newLongitude && newLatitude) {
+                await fetch(`${API_URL}/${id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name: newName, longitude: newLongitude, latitude: newLatitude }),
+                });
+                fetchInstitutions();
+            }
+        }
+
+        // Delete institution
+        async function deleteInstitution(id) {
+            if (confirm("¿Estás seguro de que quieres eliminar esta institución?")) {
+                await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+                fetchInstitutions();
+            }
+        }
+
+        // Initialize the dashboard
+        fetchInstitutions();
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('authToken'); // Eliminar el token
+            localStorage.removeItem('articulos');
+            localStorage.removeItem('ubicacion');
+            window.location.href = '/frontend/index.html'; // Redirigir a la página principal
+        });
+    </script>
+</body>
+
+</html>
