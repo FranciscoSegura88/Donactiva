@@ -5,6 +5,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.time.LocalDateTime;
 
 import com.donactiva.proyecto.repository.DonacionRepository;
@@ -20,6 +21,8 @@ interface InnerDonacionService {
     Donacion marcarComoRecolectada(int id);
 
     Iterable<Donacion> obtenerDonaciones(int idUsuario);
+
+    Optional<Donacion> consultarDonacion(int idDonacion);
 
 }
 
@@ -43,6 +46,10 @@ public class DonacionService implements InnerDonacionService {
 
     public Iterable<Donacion> obtenerDonaciones(int idUsuario) {
         return donacionRepository.findAllByUsuario_IdUsuario(idUsuario);
+    }
+
+    public Optional<Donacion> consultarDonacion(int idDonacion){
+        return donacionRepository.findById(idDonacion);
     }
 
     public Donacion guardarDonacion(int idArticulo, int idLocalizacion, int idUsuario) {
