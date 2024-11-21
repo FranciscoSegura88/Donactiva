@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,26 +32,34 @@ public class DonacionController {
 
     @GetMapping("/misDonaciones")
     public ResponseEntity<?> obtenerDonaciones(
-        @RequestParam int idUsuario) {
+            @RequestParam int idUsuario) {
 
-    Iterable<Donacion> donaciones = donacionService.obtenerDonaciones(idUsuario);
+        Iterable<Donacion> donaciones = donacionService.obtenerDonaciones(idUsuario);
 
-    if (!donaciones.iterator().hasNext()) {
-        Map<String, String> mensaje = new HashMap<>();
-        mensaje.put("Ups!", "No hay donaciones todavia");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
+        if (!donaciones.iterator().hasNext()) {
+            Map<String, String> mensaje = new HashMap<>();
+            mensaje.put("Ups!", "No hay donaciones todavia");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
+        }
+
+        return ResponseEntity.ok(donaciones);
     }
 
-    return ResponseEntity.ok(donaciones);
-}
+    @GetMapping("/consultarDonacion")
+    public Optional<Donacion> consultarDonacion(@PathVariable int idDonacion) {
+
+
+        return donacionService.consultarDonacion(idDonacion);
+    }
+    
 
     @PostMapping("/confirmarDonacion")
     public ResponseEntity<Donacion> crearDonacion(
             @RequestParam int idArticulo,
             @RequestParam int idLocalizacion,
             @RequestParam int idUsuario) {
-        
-            Donacion nuevaDonacion = donacionService.guardarDonacion(idArticulo, idLocalizacion, idUsuario);
+
+        Donacion nuevaDonacion = donacionService.guardarDonacion(idArticulo, idLocalizacion, idUsuario);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaDonacion);
     }

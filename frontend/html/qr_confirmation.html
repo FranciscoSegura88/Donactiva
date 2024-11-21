@@ -48,11 +48,10 @@
     <script>
 
         // Obtener el botón y el selector de estado
-        const getDonationsBtn = document.getElementById('getDonationsBtn');
         const token = localStorage.getItem('authToken');
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
 
-        const id = decodedToken.id;
+        //const id = decodedToken.id;
         const username = decodedToken.nombre;
         const correo = decodedToken.correo;
 
